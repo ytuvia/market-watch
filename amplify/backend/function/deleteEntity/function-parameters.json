@@ -1,0 +1,26 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "marketwatch": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "storage": {
+      "content": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "pgDsn",
+      "environmentVariableName": "PG_DSN"
+    }
+  ]
+}

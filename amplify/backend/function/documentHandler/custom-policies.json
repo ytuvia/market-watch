@@ -1,0 +1,10 @@
+[
+  {
+    "Action": ["comprehend:*"],
+    "Resource": ["*"]
+  },
+  {
+    "Action": ["translate:*"],
+    "Resource": ["*"]
+  }
+]

@@ -1,0 +1,316 @@
+{
+  "api": {
+    "marketwatch": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    },
+    "restapicontainer": {
+      "apiType": "REST",
+      "build": true,
+      "categoryPolicies": [
+        {
+          "Action": [
+            "appsync:GraphQL"
+          ],
+          "Effect": "Allow",
+          "Resource": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:appsync:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":apis/",
+                  {
+                    "Ref": "apimarketwatchGraphQLAPIIdOutput"
+                  },
+                  "/types/Query/*"
+                ]
+              ]
+            },
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:appsync:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":apis/",
+                  {
+                    "Ref": "apimarketwatchGraphQLAPIIdOutput"
+                  },
+                  "/types/Mutation/*"
+                ]
+              ]
+            },
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:appsync:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":apis/",
+                  {
+                    "Ref": "apimarketwatchGraphQLAPIIdOutput"
+                  },
+                  "/types/Subscription/*"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        },
+        {
+          "attributes": [
+            "ClusterName",
+            "VpcId",
+            "VpcCidrBlock",
+            "SubnetIds",
+            "VpcLinkId",
+            "CloudMapNamespaceId"
+          ],
+          "category": "",
+          "resourceName": "NetworkStack"
+        }
+      ],
+      "deploymentMechanism": "FULLY_MANAGED",
+      "environmentMap": {
+        "API_MARKETWATCH_GRAPHQLAPIENDPOINTOUTPUT": {
+          "Ref": "apimarketwatchGraphQLAPIEndpointOutput"
+        },
+        "API_MARKETWATCH_GRAPHQLAPIIDOUTPUT": {
+          "Ref": "apimarketwatchGraphQLAPIIdOutput"
+        },
+        "API_MARKETWATCH_GRAPHQLAPIKEYOUTPUT": {
+          "Ref": "apimarketwatchGraphQLAPIKeyOutput"
+        }
+      },
+      "iamAccessUnavailable": true,
+      "imageSource": {
+        "template": "dockerfile-rest-express",
+        "type": "TEMPLATE"
+      },
+      "mutableParametersState": {
+        "permissions": {
+          "api": {
+            "marketwatch": [
+              "Query",
+              "Mutation",
+              "Subscription"
+            ]
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "resourceName": "restapicontainer",
+      "restrictAccess": false,
+      "service": "ElasticContainer",
+      "skipHashing": false
+    }
+  },
+  "auth": {
+    "marketwatch53bd761f": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "countTokens": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "deleteEntity": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "documentHandler": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_countTokens_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countTokens"
+        }
+      ]
+    },
+    "AMPLIFY_function_countTokens_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countTokens"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntity_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntity"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntity_pgDsn": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntity"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntity_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntity"
+        }
+      ]
+    },
+    "AMPLIFY_function_documentHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "documentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_documentHandler_restapiEndpoint": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "documentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_documentHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "documentHandler"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "content": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "documentHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}

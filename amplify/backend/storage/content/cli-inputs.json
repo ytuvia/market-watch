@@ -1,0 +1,14 @@
+{
+  "resourceName": "content",
+  "policyUUID": "d815c5eb",
+  "bucketName": "market-watch",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "documentHandler",
+  "groupAccess": {}
+}

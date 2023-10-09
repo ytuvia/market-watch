@@ -1,0 +1,12 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "marketwatch": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    }
+  }
+}

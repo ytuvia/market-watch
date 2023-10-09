@@ -1,0 +1,34 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Entity @model {
+  id: ID!
+  name: String!
+  documents: [Document] @hasMany
+  answers: [Answer] @hasMany
+}
+
+type Document @model {
+  id: ID!
+  filename: String!
+  content: String!
+}
+
+type Answer @model {
+  id: ID!
+  question: String!
+  answer: String!
+}
+
+input RemoveEntityInput {
+  id: ID!
+}
+
+type Mutation {
+  removeEntity(args: RemoveEntityInput): String @function(name: "deleteEntity-${env}")
+}
+
+type Query {
+  countTokens(id: ID!): Int @function(name: "countTokens-${env}")
+}

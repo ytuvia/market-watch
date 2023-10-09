@@ -1,0 +1,10 @@
+boto3
+nltk
+requests
+openai
+tiktoken
+pandas
+scipy
+psycopg2
+pgvector
+numpy

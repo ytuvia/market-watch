@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "api": {
+      "marketwatch": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "restapiEndpoint",
+      "environmentVariableName": "RESTAPI_ENDPOINT"
+    }
+  ]
+}

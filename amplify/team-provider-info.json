@@ -1,0 +1,79 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketwatch-dev-214018-authRole",
+      "UnauthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
+      "UnauthRoleName": "amplify-marketwatch-dev-214018-unauthRole",
+      "StackName": "amplify-marketwatch-dev-214018",
+      "StackId": "arn:aws:cloudformation:us-west-2:271936189865:stack/amplify-marketwatch-dev-214018/7b308cf0-5e2e-11ee-aafe-020793fef6c9",
+      "AmplifyAppId": "d2cu5dsnj80vpt",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-dev-214018-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "api": {
+        "marketwatch": {}
+      },
+      "function": {
+        "documentHandler": {
+          "deploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
+          "s3Key": "amplify-builds/documentHandler-2f6e6758354649515142-build.zip",
+          "restapiEndpoint": "https://y3vg49x649.execute-api.us-west-2.amazonaws.com"
+        },
+        "marketwatch": {},
+        "deleteEntity": {}
+      },
+      "auth": {
+        "marketwatch53bd761f": {}
+      },
+      "storage": {
+        "content": {}
+      }
+    }
+  },
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketwatch-main-212854-authRole",
+      "UnauthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-main-212854-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-main-212854-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+      "UnauthRoleName": "amplify-marketwatch-main-212854-unauthRole",
+      "StackName": "amplify-marketwatch-main-212854",
+      "StackId": "arn:aws:cloudformation:us-west-2:271936189865:stack/amplify-marketwatch-main-212854/0c6bd6b0-63ad-11ee-abed-02a8c22b3907",
+      "AmplifyAppId": "d2cu5dsnj80vpt",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-main-212854-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "auth": {
+        "marketwatch53bd761f": {}
+      },
+      "function": {
+        "deleteEntity": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/deleteEntity-6357393753457838395a-build.zip",
+          "pgDsn": "postgresql://postgres:mcFwHct7369FWba@market-watch-vector.co21yocebc1p.us-west-2.rds.amazonaws.com:5432/marketwatch"
+        },
+        "documentHandler": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/documentHandler-764e2b6a747836306c4c-build.zip",
+          "restapiEndpoint": "https://xv9utucrj1.execute-api.us-west-2.amazonaws.com"
+        },
+        "marketwatch": {},
+        "countTokens": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
+        }
+      },
+      "api": {
+        "marketwatch": {},
+        "restapicontainer": {}
+      },
+      "storage": {
+        "content": {}
+      }
+    }
+  }
+}

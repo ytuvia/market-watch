@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+boto3 = "*"
+pypdf2 = "*"
+requests = "*"
+requests-aws-sign = "*"
+beautifulsoup4 = "*"
+psycopg2 = "*"
+tiktoken = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
+python_full_version = "3.9.16"
