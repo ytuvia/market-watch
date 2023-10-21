@@ -10,7 +10,6 @@ import os
 GPT_MODEL = "gpt-3.5-turbo"  # only matters insofar as it selects which tokenizer to use
 MAX_TOKENS = 1600
 EMBEDDING_MODEL = "text-embedding-ada-002"  # OpenAI's best embeddings as of Apr 2023
-BATCH_SIZE = 1000  # you can submit up to 2048 embedding inputs per request
 
 openai.api_key = os.environ.get('OPENAPI_KEY')
 

@@ -1,38 +1,4 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-marketwatch-dev-214018-authRole",
-      "UnauthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
-      "UnauthRoleName": "amplify-marketwatch-dev-214018-unauthRole",
-      "StackName": "amplify-marketwatch-dev-214018",
-      "StackId": "arn:aws:cloudformation:us-west-2:271936189865:stack/amplify-marketwatch-dev-214018/7b308cf0-5e2e-11ee-aafe-020793fef6c9",
-      "AmplifyAppId": "d2cu5dsnj80vpt",
-      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-dev-214018-deployment/amplify-cfn-templates/networkingStackTemplate.json"
-    },
-    "categories": {
-      "api": {
-        "marketwatch": {}
-      },
-      "function": {
-        "documentHandler": {
-          "deploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
-          "s3Key": "amplify-builds/documentHandler-2f6e6758354649515142-build.zip",
-          "restapiEndpoint": "https://y3vg49x649.execute-api.us-west-2.amazonaws.com"
-        },
-        "marketwatch": {},
-        "deleteEntity": {}
-      },
-      "auth": {
-        "marketwatch53bd761f": {}
-      },
-      "storage": {
-        "content": {}
-      }
-    }
-  },
   "main": {
     "awscloudformation": {
       "AuthRoleName": "amplify-marketwatch-main-212854-authRole",
@@ -70,6 +36,40 @@
       "api": {
         "marketwatch": {},
         "restapicontainer": {}
+      },
+      "storage": {
+        "content": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketwatch-dev-214018-authRole",
+      "UnauthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-dev-214018-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
+      "UnauthRoleName": "amplify-marketwatch-dev-214018-unauthRole",
+      "StackName": "amplify-marketwatch-dev-214018",
+      "StackId": "arn:aws:cloudformation:us-west-2:271936189865:stack/amplify-marketwatch-dev-214018/7b308cf0-5e2e-11ee-aafe-020793fef6c9",
+      "AmplifyAppId": "d2cu5dsnj80vpt",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-dev-214018-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "api": {
+        "marketwatch": {}
+      },
+      "function": {
+        "documentHandler": {
+          "deploymentBucketName": "amplify-marketwatch-dev-214018-deployment",
+          "s3Key": "amplify-builds/documentHandler-2f6e6758354649515142-build.zip",
+          "restapiEndpoint": "https://y3vg49x649.execute-api.us-west-2.amazonaws.com"
+        },
+        "marketwatch": {},
+        "deleteEntity": {}
+      },
+      "auth": {
+        "marketwatch53bd761f": {}
       },
       "storage": {
         "content": {}

@@ -44,6 +44,7 @@ const DashboardCard = ({id}) =>{
         'id': id,
       }));
       const entity = result.data.getEntity;
+      console.log(entity);
       setEntity(entity);
     }, []);
   
@@ -64,13 +65,13 @@ const DashboardCard = ({id}) =>{
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
                     <AnswersModal answers={entity.answers?.items} name={ entity.name }/>
-                    {entity.answers?.items.length} answers
+                    {entity.answers?.items?.length} answers
                 </Stack>
             </Typography>
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
                     <DocumentsModal entityId={entity.id} documents={entity.documents?.items} name={ entity.name } />
-                    {entity.documents?.items.length} documents
+                    {entity.documents?.items?.length} documents
                 </Stack>
             </Typography>
           </Stack>

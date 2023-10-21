@@ -1,4 +1,4 @@
-import ast  # for converting embeddings saved as strings back to arrays
+import time
 import openai  # for calling the OpenAI API
 import pandas as pd  # for storing text and embeddings data
 import tiktoken  # for counting tokens
@@ -18,10 +18,22 @@ openai.api_key = os.environ.get('OPENAPI_KEY')
 
 
 def ask_entity(id, query):
+    dataset_start_time = time.time()
     documents = get_entity_documents(id)
     documents_df = pd.DataFrame(documents)
-    response = ask(query, documents_df, print_message=True)
-    return response
+    dataset_end_time = time.time()
+    dataset_elapsed_time = dataset_end_time - dataset_start_time
+    (answer, prompts, search_elapsed_time ,prompt_elapsed_time) = ask(query, documents_df)
+    result = {
+        'answer': answer,
+        'prompts': prompts,
+        'statistics': {
+            'dataset': dataset_elapsed_time,
+            'search': search_elapsed_time,
+            'prompt': prompt_elapsed_time
+        }
+    }
+    return result
 
 def get_entity_documents(id):
     variables = {
@@ -40,8 +52,6 @@ def get_entity_documents(id):
         }
     """
     response = query_api(query, variables)
-    print(variables)
-    print(response)
     return response['data']['getEntity']['documents']['items']
 
 def search_related_documents(ids, query):
@@ -93,22 +103,25 @@ def ask(
     query: str,
     df: pd.DataFrame,
     model: str = GPT_MODEL,
-    token_budget: int = 4096 - 500,
-    print_message: bool = False,
+    token_budget: int = 4096 - 500
 ) -> str:
     """Answers a query using GPT and a dataframe of relevant texts and embeddings."""
+    embedding_start_time = time.time()
     message = query_message(query, df, model=model, token_budget=token_budget)
-    if print_message:
-        print(message)
+    embedding_end_time = time.time()
+    embedding_elapsed_time = embedding_end_time - embedding_start_time
     messages = [
         {"role": "system", "content": "You answer questions about the business entity."},
         {"role": "user", "content": message},
     ]
+    prompt_start_time = time.time()
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
         temperature=0
     )
+    prompt_end_time = time.time()
+    prompt_elapsed_time = prompt_end_time - prompt_start_time
     response_message = response["choices"][0]["message"]["content"]
-    return response_message
+    return (response_message, messages, embedding_elapsed_time, prompt_elapsed_time)
 

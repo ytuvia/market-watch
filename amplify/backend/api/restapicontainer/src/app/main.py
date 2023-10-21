@@ -43,8 +43,11 @@ async def translate(input: TranslateInput):
 
 @app.post("/ask")
 async def ask_question(input: AskInput):
-    result = ask_entity(input.entity_id, input.question)
-    return result
+    try:
+        result = ask_entity(input.entity_id, input.question)
+        return result
+    except Exception as e:
+        return(f"An error occurred: {e}")
 
 @app.post("/embed/document")
 async def embed_document(input: DocumentInput):
