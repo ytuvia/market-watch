@@ -19,29 +19,12 @@ def handler(event, context):
   for message in event['Records']:
     event_name = message['eventName']
     if event_name == 'ObjectCreated:Put' or event_name == 'ObjectCreated:CompleteMultipartUpload':
-      object = message['s3']['object']
-      bucket = message['s3']['bucket']
-      file_info = get_file_metadata(bucket['name'], object['key'])
-      filename = download_file(bucket['name'], object['key'])
-      if file_info['ContentType'] == 'application/pdf':
-        content = read_pdf(f'/tmp/{filename}')
-      elif file_info['ContentType'] in ['image/png', 'image/jpeg', 'image/gif']:
-         content = '' # at the moment we don't read image files
-      elif file_info['ContentType'] in ['text/html']:
-         with open(f'/tmp/{filename}', "r", errors='replace', encoding='utf-8') as f:
-            content = remove_html_tags(f.read())
-            print(content)
-      else:
-         with open(f'/tmp/{filename}', "r", errors='replace', encoding='utf-8') as f:
-            content = f.read()
-      folders = object['key'].split('/')[:-1]
-      entityId = folders[len(folders) - 1]
-      document = create_document(filename, content, entityId)
-      language = detect_language(content)
-      if language != 'en':
-         post_document_translate(document["id"])
-      post_embed_document(document["id"])
-      result.append(document["id"])
+        items = read_content(message)
+        print(items)
+        for item in items: 
+            entityId, filename, content = item
+            document = post_document(entityId, filename, content)
+            result.append(document["id"])
 
   return {
       'statusCode': 200,
@@ -52,6 +35,37 @@ def handler(event, context):
       },
       'body': json.dumps(result)
   }
+
+def read_content(message):
+    object = message['s3']['object']
+    bucket = message['s3']['bucket']
+    file_info = get_file_metadata(bucket['name'], object['key'])
+    filename = download_file(bucket['name'], object['key'])
+    contents = []
+    if file_info['ContentType'] == 'application/pdf':
+        contents = [read_pdf(f'/tmp/{filename}')
+    elif file_info['ContentType'] in ['image/png', 'image/jpeg', 'image/gif']:
+        contents = ['' # at the moment we don't read image files
+    elif file_info['ContentType'] in ['text/html']:
+        with open(f'/tmp/{filename}', "r", errors='replace', encoding='utf-8') as f:
+        contents = [remove_html_tags(f.read())]
+    else:
+        with open(f'/tmp/{filename}', "r", errors='replace', encoding='utf-8') as f:
+        contents = [f.read()]
+
+    folders = object['key'].split('/')[:-1]
+    entityId = folders[len(folders) - 1]
+    result = []
+    for content of contents:
+        result.append((entityId, filename, content))
+    return result
+
+def post_document(entityId, filename, content):
+    document = create_document(filename, content, entityId)
+    language = detect_language(content)
+    if language != 'en':
+        post_document_translate(document["id"])
+    post_embed_document(document["id"])
 
 def get_file_metadata(bucket, key):
     head_object_response = s3.head_object(Bucket=bucket, Key=key)
