@@ -1,6 +1,16 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const countDocuments = /* GraphQL */ `
+  query CountDocuments($id: ID!) {
+    countDocuments(id: $id)
+  }
+`;
+export const countAnswers = /* GraphQL */ `
+  query CountAnswers($id: ID!) {
+    countAnswers(id: $id)
+  }
+`;
 export const countTokens = /* GraphQL */ `
   query CountTokens($id: ID!) {
     countTokens(id: $id)
@@ -12,28 +22,10 @@ export const getEntity = /* GraphQL */ `
       id
       name
       documents {
-        items {
-          id
-          filename
-          content
-          createdAt
-          updatedAt
-          entityDocumentsId
-          __typename
-        }
         nextToken
         __typename
       }
       answers {
-        items {
-          id
-          question
-          answer
-          createdAt
-          updatedAt
-          entityAnswersId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -53,14 +45,6 @@ export const listEntities = /* GraphQL */ `
       items {
         id
         name
-        documents {
-          nextToken
-          __typename
-        }
-        answers {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename

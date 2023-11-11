@@ -9,13 +9,9 @@ import {
 } from '@mui/material';
 
 // api import
-import { API, graphqlOperation } from 'aws-amplify';
-import { createAnswer } from 'graphql/mutations'
 import { useState} from 'react';
-import axios from 'axios';
-import awsExports from 'aws-exports';
-
-const API_ENDPOINT = awsExports.aws_cloud_logic_custom[0].endpoint;
+import { useDispatch } from 'react-redux';
+import { saveAnswer, askQuestion } from '../../store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -30,6 +26,8 @@ const modalStyle = {
   };
 
 const AskModal = ({id, name}) => {
+    const dispatch = useDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -41,16 +39,16 @@ const AskModal = ({id, name}) => {
   
     const handleOnClick = async () => {
       setIsDisabled(true);
-      const postData = {
-        'entity_id': id,
-        'question': question
-      }
-      const response = await axios.post(API_ENDPOINT + '/ask', postData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      setAnswer(response.data);
+      setAddRequestStatus('pending');
+      const result = await dispatch(
+        askQuestion({ 
+          id: id, 
+          question: question 
+        })
+      ).unwrap();
+      setAddRequestStatus('idle');
+
+      setAnswer(result);
       setIsDisabled(false);
       setHidden(false)
     }
@@ -62,13 +60,13 @@ const AskModal = ({id, name}) => {
     const handleSave = async () => {
       setIsDisabled(true);
       setIsSaved(true);
-      await API.graphql(graphqlOperation(createAnswer, {
-        'input': {
-          'question': question,
-          'answer': answer,
-          'entityAnswersId': id
-        }
-      }));
+      const result = await dispatch(
+        saveAnswer({ 
+          id: id, 
+          question: question,
+          answer: answer
+        })
+      ).unwrap();
       setIsDisabled(false);
       setHidden(true);
       setIsSaved(false);

@@ -7,28 +7,10 @@ export const onCreateEntity = /* GraphQL */ `
       id
       name
       documents {
-        items {
-          id
-          filename
-          content
-          createdAt
-          updatedAt
-          entityDocumentsId
-          __typename
-        }
         nextToken
         __typename
       }
       answers {
-        items {
-          id
-          question
-          answer
-          createdAt
-          updatedAt
-          entityAnswersId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -44,28 +26,10 @@ export const onUpdateEntity = /* GraphQL */ `
       id
       name
       documents {
-        items {
-          id
-          filename
-          content
-          createdAt
-          updatedAt
-          entityDocumentsId
-          __typename
-        }
         nextToken
         __typename
       }
       answers {
-        items {
-          id
-          question
-          answer
-          createdAt
-          updatedAt
-          entityAnswersId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -81,28 +45,10 @@ export const onDeleteEntity = /* GraphQL */ `
       id
       name
       documents {
-        items {
-          id
-          filename
-          content
-          createdAt
-          updatedAt
-          entityDocumentsId
-          __typename
-        }
         nextToken
         __typename
       }
       answers {
-        items {
-          id
-          question
-          answer
-          createdAt
-          updatedAt
-          entityAnswersId
-          __typename
-        }
         nextToken
         __typename
       }

@@ -12,7 +12,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChatIcon from '@mui/icons-material/Chat';
 
 // api import
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchAnswers } from '../../store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -26,12 +28,21 @@ const modalStyle = {
     p: 2,
 };
 
-const AnswersModal = ({answers, name}) => {
-    //const [answers, setAnswers] = useState([]);
+const AnswersModal = ({id, name}) => {
+    const dispatch = useDispatch();
+    const [answers, setAnswers] = useState([]);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = async () => {
+      const result = await dispatch(
+        fetchAnswers({ 
+          id: id
+        })
+      ).unwrap();
+      setAnswers(result);
+      setOpen(true);
+    }
     const handleClose = () => setOpen(false);
-
+    
     return (
         <div>
           <IconButton aria-label="answers" onClick={handleOpen}>
@@ -48,6 +59,7 @@ const AnswersModal = ({answers, name}) => {
                 <Typography id="modal-modal-title" variant="h4" component="h2">
                     Saved answers for {name}
                 </Typography>
+                <Box>
                 {answers?.map(item => (
                     <Accordion key={item.id}>
                         <AccordionSummary
@@ -64,6 +76,7 @@ const AnswersModal = ({answers, name}) => {
                         </AccordionDetails>
                     </Accordion>
                 ))}
+                </Box>
               </Stack>
             </Box>
           </Modal>

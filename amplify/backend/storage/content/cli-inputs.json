@@ -9,6 +9,6 @@
     "READ",
     "DELETE"
   ],
-  "triggerFunction": "documentHandler",
+  "triggerFunction": "fileuploadtrigger",
   "groupAccess": {}
 }

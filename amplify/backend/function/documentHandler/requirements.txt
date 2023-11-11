@@ -1,5 +1,0 @@
-boto3
-PyPDF2
-requests
-requests-aws-sign
-beautifulsoup4

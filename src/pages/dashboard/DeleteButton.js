@@ -8,8 +8,8 @@ import {
     Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { removeEntity } from 'graphql/mutations'
+import { useDispatch } from 'react-redux';
+import { deleteEntity } from '../../store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -24,6 +24,8 @@ const modalStyle = {
 };
 
 const DeleteButton = ({ id, name }) => {
+    const dispatch = useDispatch();
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -31,11 +33,7 @@ const DeleteButton = ({ id, name }) => {
 
     const handleRemove = async () => {
         setIsDisabled(true);
-        await API.graphql(graphqlOperation(removeEntity, {
-        'args':{
-            'id': id
-        }
-        }));
+        await dispatch(deleteEntity({ id: id }))
         setIsDisabled(false);
         handleClose();
     }

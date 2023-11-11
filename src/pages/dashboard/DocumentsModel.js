@@ -19,6 +19,9 @@ import { countTokens } from 'graphql/queries'
 import { useState } from 'react';
 import { Storage } from 'aws-amplify';
 
+import { useDispatch } from 'react-redux';
+import { fetchDocumentsPage } from '../../store/reducers/entities/entitiesSlice';
+
 const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -92,9 +95,22 @@ const TokensButton =  ({id}) => {
   )
 }
 
-const DocumentsModal = ({entityId, documents, name}) => {
+const DocumentsModal = ({entityId, name}) => {
+    const dispatch = useDispatch();
+    const [documents, setDocuments] = useState([]);
+    const [nextToken, setNextToken] = useState(null);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = async () => {
+      const result = await dispatch(
+        fetchDocumentsPage({ 
+          id: entityId,
+          nextToken: nextToken
+        })
+      ).unwrap();
+      setDocuments(result.items);
+      setNextToken(result.nextToken);
+      setOpen(true);
+    }
     const handleClose = () => setOpen(false);
     
     return (

@@ -215,15 +215,15 @@
             "EntryPoint": [],
             "Environment": [
               {
-                "Name": "API_MARKETWATCH_GRAPHQLAPIIDOUTPUT",
-                "Value": {
-                  "Ref": "apimarketwatchGraphQLAPIIdOutput"
-                }
-              },
-              {
                 "Name": "API_MARKETWATCH_GRAPHQLAPIENDPOINTOUTPUT",
                 "Value": {
                   "Ref": "apimarketwatchGraphQLAPIEndpointOutput"
+                }
+              },
+              {
+                "Name": "API_MARKETWATCH_GRAPHQLAPIIDOUTPUT",
+                "Value": {
+                  "Ref": "apimarketwatchGraphQLAPIIdOutput"
                 }
               },
               {
@@ -770,7 +770,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "ZipFile": "const AWS = require('aws-sdk');\n\nconst codepipeline = new AWS.CodePipeline();\nconst ecs = new AWS.ECS();\n\nconst { DESIRED_COUNT: desiredCountStr, CLUSTER_NAME: cluster, SERVICE_NAME: service } = process.env;\n\nconst desiredCount = parseInt(desiredCountStr, 10);\n\nexports.handler = async function({ 'CodePipeline.job': { id: jobId } }) {\n  await ecs\n    .updateService({\n      service,\n      cluster,\n      desiredCount,\n    })\n    .promise();\n\n  return await codepipeline.putJobSuccessResult({ jobId }).promise();\n};\n"
+          "ZipFile": "const { CodePipeline } = require('@aws-sdk/client-codepipeline');\nconst { ECS } = require('@aws-sdk/client-ecs');\n\nconst codepipeline = new CodePipeline();\nconst ecs = new ECS();\n\nconst { DESIRED_COUNT: desiredCountStr, CLUSTER_NAME: cluster, SERVICE_NAME: service } = process.env;\n\nconst desiredCount = parseInt(desiredCountStr, 10);\n\nexports.handler = async function({ 'CodePipeline.job': { id: jobId } }) {\n  await ecs.updateService({\n    service,\n    cluster,\n    desiredCount,\n  });\n\n  return await codepipeline.putJobSuccessResult({ jobId });\n};\n"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -788,7 +788,7 @@
           }
         },
         "Handler": "index.handler",
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 15
       },
       "DependsOn": [
@@ -1570,7 +1570,7 @@
           ]
         },
         "Handler": "index.handler",
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 15
       },
       "DependsOn": [
@@ -1665,7 +1665,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "ZipFile": "const AWS = require('aws-sdk');\n\nconst stageName = 'Source';\nconst actionName = 'Source';\n\nconst codePipeline = new AWS.CodePipeline();\nconst cloudFormation = new AWS.CloudFormation();\n\nexports.handler = async function({ RequestType, ResourceProperties, StackId }) {\n  const { pipelineName, artifactBucketName, artifactKey, deploymentMechanism } = ResourceProperties;\n\n  console.log('Properties', ResourceProperties);\n\n  switch (RequestType) {\n    case 'Delete':\n      return { IsComplete: true };\n    case 'Update':\n      const [, StackName] = StackId.split('/');\n      const { Stacks } = await cloudFormation.describeStacks({ StackName }).promise();\n      const [{ StackStatus }] = Stacks;\n\n      if (StackStatus.includes('ROLLBACK')) {\n        return { IsComplete: true };\n      }\n  }\n\n  let stages;\n\n  try {\n    const { pipeline } = await codePipeline.getPipeline({ name: pipelineName }).promise();\n\n    ({ stages } = pipeline);\n  } catch (error) {\n    const { code } = error;\n\n    switch (code) {\n      case 'PipelineNotFoundException':\n        console.warn(error);\n\n        return {\n          IsComplete: false,\n        };\n      default:\n        throw error;\n    }\n  }\n\n  const stage = stages.find(({ name }) => name === stageName);\n\n  if (stage === undefined) {\n    throw new Error(`There is no stage named \"${stageName}\" in the \"${pipelineName}\" pipeline`);\n  }\n\n  const action = stage.actions.find(({ name }) => name === actionName);\n\n  if (action === undefined) {\n    throw new Error(`There is no action named \"${actionName}\" in the \"${stageName}\" stage of the \"${pipelineName}\" pipeline`);\n  }\n\n  const {\n    configuration,\n    configuration: { S3Bucket, S3ObjectKey },\n  } = action;\n\n  if (deploymentMechanism === 'FULLY_MANAGED') {\n    if (S3Bucket !== artifactBucketName || S3ObjectKey !== artifactKey) {\n      console.warn(\n        `Bucket \"${artifactBucketName}\" and key \"${artifactKey}\" dont match the \"${actionName}\" action configuration ${JSON.stringify(\n          configuration,\n        )}`,\n      );\n\n      return {\n        IsComplete: false,\n      };\n    }\n  }\n\n  let execution;\n\n  try {\n    const { pipelineExecutionSummaries } = await codePipeline.listPipelineExecutions({ pipelineName }).promise();\n\n    [execution] = pipelineExecutionSummaries;\n  } catch (error) {\n    console.warn(error);\n\n    return {\n      IsComplete: false,\n    };\n  }\n\n  console.log(execution);\n\n  const { status } = execution || {};\n\n  let IsComplete = false;\n\n  switch (status) {\n    case 'Failed':\n    case 'Stopped':\n      throw new Error(\"The execution didn't succeed\");\n    case 'Succeeded':\n      IsComplete = true;\n  }\n\n  return { IsComplete };\n};\n"
+          "ZipFile": "const { CloudFormation } = require('@aws-sdk/client-cloudformation');\nconst { CodePipeline } = require('@aws-sdk/client-codepipeline');\n\nconst stageName = 'Source';\nconst actionName = 'Source';\n\nconst codePipeline = new CodePipeline();\nconst cloudFormation = new CloudFormation();\n\nexports.handler = async function({ RequestType, ResourceProperties, StackId }) {\n  const { pipelineName, artifactBucketName, artifactKey, deploymentMechanism } = ResourceProperties;\n\n  console.log('Properties', ResourceProperties);\n\n  switch (RequestType) {\n    case 'Delete':\n      return { IsComplete: true };\n    case 'Update':\n      const [, StackName] = StackId.split('/');\n      const { Stacks } = await cloudFormation.describeStacks({ StackName });\n      const [{ StackStatus }] = Stacks;\n\n      if (StackStatus.includes('ROLLBACK')) {\n        return { IsComplete: true };\n      }\n  }\n\n  let stages;\n\n  try {\n    const { pipeline } = await codePipeline.getPipeline({ name: pipelineName });\n\n    ({ stages } = pipeline);\n  } catch (error) {\n    const { code } = error;\n\n    switch (code) {\n      case 'PipelineNotFoundException':\n        console.warn(error);\n\n        return {\n          IsComplete: false,\n        };\n      default:\n        throw error;\n    }\n  }\n\n  const stage = stages.find(({ name }) => name === stageName);\n\n  if (stage === undefined) {\n    throw new Error(`There is no stage named \"${stageName}\" in the \"${pipelineName}\" pipeline`);\n  }\n\n  const action = stage.actions.find(({ name }) => name === actionName);\n\n  if (action === undefined) {\n    throw new Error(`There is no action named \"${actionName}\" in the \"${stageName}\" stage of the \"${pipelineName}\" pipeline`);\n  }\n\n  const {\n    configuration,\n    configuration: { S3Bucket, S3ObjectKey },\n  } = action;\n\n  if (deploymentMechanism === 'FULLY_MANAGED') {\n    if (S3Bucket !== artifactBucketName || S3ObjectKey !== artifactKey) {\n      console.warn(\n        `Bucket \"${artifactBucketName}\" and key \"${artifactKey}\" dont match the \"${actionName}\" action configuration ${JSON.stringify(\n          configuration,\n        )}`,\n      );\n\n      return {\n        IsComplete: false,\n      };\n    }\n  }\n\n  let execution;\n\n  try {\n    const { pipelineExecutionSummaries } = await codePipeline.listPipelineExecutions({ pipelineName });\n\n    [execution] = pipelineExecutionSummaries;\n  } catch (error) {\n    console.warn(error);\n\n    return {\n      IsComplete: false,\n    };\n  }\n\n  console.log(execution);\n\n  const { status } = execution || {};\n\n  let IsComplete = false;\n\n  switch (status) {\n    case 'Failed':\n    case 'Stopped':\n      throw new Error(\"The execution didn't succeed\");\n    case 'Succeeded':\n      IsComplete = true;\n  }\n\n  return { IsComplete };\n};\n"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1674,7 +1674,7 @@
           ]
         },
         "Handler": "index.handler",
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 15
       },
       "DependsOn": [
@@ -1826,7 +1826,7 @@
           }
         },
         "Handler": "framework.onEvent",
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900
       },
       "DependsOn": [
@@ -1968,7 +1968,7 @@
           }
         },
         "Handler": "framework.isComplete",
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900
       },
       "DependsOn": [
@@ -2110,7 +2110,7 @@
           }
         },
         "Handler": "framework.onTimeout",
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
         "Timeout": 900
       },
       "DependsOn": [
@@ -2439,6 +2439,15 @@
             {
               "Action": [
                 "translate:*"
+              ],
+              "Resource": [
+                "*"
+              ],
+              "Effect": "Allow"
+            },
+            {
+              "Action": [
+                "s3:*"
               ],
               "Resource": [
                 "*"

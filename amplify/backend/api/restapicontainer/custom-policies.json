@@ -6,5 +6,9 @@
   {
     "Action": ["translate:*"],
     "Resource": ["*"]
+  },
+  {
+    "Action": ["s3:*"],
+    "Resource": ["*"]
   }
 ]

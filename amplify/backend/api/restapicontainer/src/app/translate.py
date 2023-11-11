@@ -11,11 +11,14 @@ tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 region = os.environ["REGION"]
 
 translate = boto3.session.Session().client(service_name="translate", region_name=region)
+comprehend = boto3.client(service_name="comprehend", region_name=region)
 
 def translate_document(id, source_lang, target_lang):
     document = get_document(id)
-    translation = translate_document_text(document['content'], source_lang, target_lang)
-    update_document_content(id, translation)
+    language = detect_language(document['content'])
+    if language != 'en':
+        translation = translate_document_text(document['content'], source_lang, target_lang)
+        update_document_content(id, translation)
     return id
 
 def translate_document_text(text, source_lang, target_lang):
@@ -78,3 +81,9 @@ def update_document_content(id, content):
     response = query_api(query, variables)
     print(response)
     return response['data']['updateDocument']
+
+def detect_language(text):
+    # Call the detect_dominant_language function
+    response = comprehend.detect_dominant_language(Text=text[:200])
+    print(response)
+    return response['Languages'][0]['LanguageCode']

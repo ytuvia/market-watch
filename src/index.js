@@ -24,13 +24,11 @@ Amplify.configure(awsExports);
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
-  <StrictMode>
     <ReduxProvider store={store}>
       <BrowserRouter basename="/">
         <App />
       </BrowserRouter>
     </ReduxProvider>
-  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

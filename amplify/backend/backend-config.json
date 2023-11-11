@@ -175,7 +175,49 @@
       "service": "Cognito"
     }
   },
+  "custom": {
+    "deleteEntityDocumentsSNSTopic": {
+      "providerPlugin": "awscloudformation",
+      "service": "customCDK"
+    },
+    "documentHandlerSNS": {
+      "providerPlugin": "awscloudformation",
+      "service": "customCDK"
+    }
+  },
   "function": {
+    "countAnswers": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "countDocuments": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "countTokens": {
       "build": true,
       "dependsOn": [
@@ -215,7 +257,30 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "documentHandler": {
+    "deleteEntityDocuments": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "documentAssistant": {
       "build": true,
       "dependsOn": [
         {
@@ -230,9 +295,103 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "fileuploadtrigger": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "gmailEmbedHandler": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "handleDocument": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "providerPlugin": "awscloudformation",
+      "service": "amplifyhosting",
+      "type": "manual"
     }
   },
   "parameters": {
+    "AMPLIFY_function_countAnswers_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countAnswers"
+        }
+      ]
+    },
+    "AMPLIFY_function_countAnswers_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countAnswers"
+        }
+      ]
+    },
+    "AMPLIFY_function_countDocuments_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countDocuments"
+        }
+      ]
+    },
+    "AMPLIFY_function_countDocuments_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countDocuments"
+        }
+      ]
+    },
     "AMPLIFY_function_countTokens_deploymentBucketName": {
       "usedBy": [
         {
@@ -246,6 +405,38 @@
         {
           "category": "function",
           "resourceName": "countTokens"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntityDocuments_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntityDocuments"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntityDocuments_doTranslate": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntityDocuments"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntityDocuments_restapiEndpoint": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntityDocuments"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEntityDocuments_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEntityDocuments"
         }
       ]
     },
@@ -273,27 +464,99 @@
         }
       ]
     },
-    "AMPLIFY_function_documentHandler_deploymentBucketName": {
+    "AMPLIFY_function_fileuploadtrigger_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "documentHandler"
+          "resourceName": "fileuploadtrigger"
         }
       ]
     },
-    "AMPLIFY_function_documentHandler_restapiEndpoint": {
+    "AMPLIFY_function_fileuploadtrigger_doTranslate": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "documentHandler"
+          "resourceName": "fileuploadtrigger"
         }
       ]
     },
-    "AMPLIFY_function_documentHandler_s3Key": {
+    "AMPLIFY_function_fileuploadtrigger_restapiEndpoint": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "documentHandler"
+          "resourceName": "fileuploadtrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_fileuploadtrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fileuploadtrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_gmailEmbedHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gmailEmbedHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_gmailEmbedHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gmailEmbedHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleDocument_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleDocument"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleDocument_doTranslate": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleDocument"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleDocument_restapiEndpoint": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleDocument"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleDocument_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleDocument"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
         }
       ]
     }
@@ -308,7 +571,7 @@
             "LambdaExecutionRole"
           ],
           "category": "function",
-          "resourceName": "documentHandler"
+          "resourceName": "fileuploadtrigger"
         }
       ],
       "providerPlugin": "awscloudformation",

@@ -4,6 +4,12 @@ from pydantic import BaseModel
 from translate import translate_document
 from question_agent import ask_entity
 from lib.embedding import insert_row
+from pdf_utils import read_pdf_file
+from csv_utils import read_csv_file
+
+class S3KeyInput(BaseModel):
+    bucket: str
+    key: str
 
 class AskInput(BaseModel):
     entity_id: str
@@ -52,4 +58,14 @@ async def ask_question(input: AskInput):
 @app.post("/embed/document")
 async def embed_document(input: DocumentInput):
     result = insert_row(input.document_id)
+    return result
+
+@app.post("/read_pdf")
+async def read_pdf(input: S3KeyInput):
+    result = read_pdf_file(input.bucket, input.key)
+    return result
+
+@app.post("/read_csv")
+async def read_csv(input: S3KeyInput):
+    result = read_csv_file(input.bucket, input.key)
     return result

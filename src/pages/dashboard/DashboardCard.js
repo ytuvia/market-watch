@@ -9,48 +9,14 @@ import AskModal from './AskModal';
 import UploadModal from './UploadModal';
 import AnswersModal from './AnswersModal';
 import DocumentsModal from './DocumentsModel';
+import { useSelector } from 'react-redux';
+import { selectEntityById } from '../../store/reducers/entities/entitiesSlice';
 
 // project import
 import MainCard from 'components/MainCard';
 
-// api import
-import { API, graphqlOperation } from 'aws-amplify';
-import { getEntity } from 'graphql/queries';
-import { onCreateDocument, onCreateAnswer } from 'graphql/subscriptions';
-import { useCallback, useState, useEffect } from 'react';
-
 const DashboardCard = ({id}) =>{
-    const [entity, setEntity] = useState([]);
-    API.graphql(
-      graphqlOperation(onCreateDocument)
-    ).subscribe({
-      next: () => {
-        loadEntity(id);
-      },
-      error: (error) => console.warn(error)
-    });
-  
-    API.graphql(
-      graphqlOperation(onCreateAnswer)
-    ).subscribe({
-      next: () => {
-        loadEntity(id);
-      },
-      error: (error) => console.warn(error)
-    });
-  
-    const loadEntity = useCallback(async (id) => {
-      const result = await API.graphql(graphqlOperation(getEntity, {
-        'id': id,
-      }));
-      const entity = result.data.getEntity;
-      console.log(entity);
-      setEntity(entity);
-    }, []);
-  
-    useEffect(() => {
-      loadEntity(id);
-    }, [loadEntity]);
+    const entity = useSelector(state=> selectEntityById(state, id))
   
     return (
       <MainCard key={entity.id}>
@@ -64,14 +30,14 @@ const DashboardCard = ({id}) =>{
           <Stack>
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
-                    <AnswersModal answers={entity.answers?.items} name={ entity.name }/>
-                    {entity.answers?.items?.length} answers
+                    <AnswersModal id={entity.id} name={ entity.name }/>
+                    { entity.answerCount } answers
                 </Stack>
             </Typography>
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
                     <DocumentsModal entityId={entity.id} documents={entity.documents?.items} name={ entity.name } />
-                    {entity.documents?.items?.length} documents
+                    { entity.documentCount } documents
                 </Stack>
             </Typography>
           </Stack>

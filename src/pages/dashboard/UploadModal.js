@@ -8,12 +8,11 @@ import {
     styled } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
   
-  
 // api import
-import { Storage } from 'aws-amplify';
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-  
+import { useDispatch } from 'react-redux';
+import { uploadDocument } from '../../store/reducers/entities/entitiesSlice';
+
 const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -39,29 +38,22 @@ const VisuallyHiddenInput = styled('input')({
   });
 
 const UploadModal = ({id, name}) => {
+    const dispatch = useDispatch();
+    
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [addRequestStatus, setAddRequestStatus] = useState('idle');
   
     const [isDisabled, setIsDisabled] = useState(false);
   
     const onChange = async (e) => {
+      setAddRequestStatus('pending');
       setIsDisabled(true);
-      const file = e.target.files[0];
-      const uuid = uuidv4();
-      const mime = file.type;
-      const parts = mime.split('/');
-      let filetype = '';
-      if (parts.length === 2) {
-        filetype =  parts[1];
-      }
-      const key = id +'/' + uuid + '.' + filetype;
-      const result = await Storage.put(key, file, {
-        contentType: mime, // contentType is optional
-      });
+      await dispatch(uploadDocument({ id: id, file: e.target.files[0] })).unwrap();
+      setAddRequestStatus('idle');
       setIsDisabled(false);
       setOpen(false);
-      console.log(result);
     }
   
     return (

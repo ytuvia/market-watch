@@ -19,19 +19,45 @@
       "function": {
         "deleteEntity": {
           "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
-          "s3Key": "amplify-builds/deleteEntity-6357393753457838395a-build.zip",
+          "s3Key": "amplify-builds/deleteEntity-6a44487279534d316c38-build.zip",
           "pgDsn": "postgresql://postgres:mcFwHct7369FWba@market-watch-vector.co21yocebc1p.us-west-2.rds.amazonaws.com:5432/marketwatch"
-        },
-        "documentHandler": {
-          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
-          "s3Key": "amplify-builds/documentHandler-764e2b6a747836306c4c-build.zip",
-          "restapiEndpoint": "https://xv9utucrj1.execute-api.us-west-2.amazonaws.com"
         },
         "marketwatch": {},
         "countTokens": {
           "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
           "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
-        }
+        },
+        "fileuploadtrigger": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/fileuploadtrigger-48664662655558584549-build.zip",
+          "restapiEndpoint": "https://xv9utucrj1.execute-api.us-west-2.amazonaws.com",
+          "doTranslate": "false"
+        },
+        "countDocuments": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/countDocuments-3548785041446d305073-build.zip"
+        },
+        "countAnswers": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/countAnswers-366742716433782b3968-build.zip"
+        },
+        "handleDocument": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/handleDocument-594f7a5571514f46324a-build.zip",
+          "doTranslate": "false",
+          "restapiEndpoint": "https://xv9utucrj1.execute-api.us-west-2.amazonaws.com"
+        },
+        "deleteEntityDocuments": {
+          "doTranslate": "false",
+          "restapiEndpoint": "https://xv9utucrj1.execute-api.us-west-2.amazonaws.com",
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/deleteEntityDocuments-416b474f64484c47486f-build.zip"
+        },
+        "gmailEmbedHandler": {
+          "deploymentBucketName": "amplify-marketwatch-main-212854-deployment",
+          "s3Key": "amplify-builds/gmailEmbedHandler-58625143615264694557-build.zip"
+        },
+        "documentAssistant": {}
       },
       "api": {
         "marketwatch": {},
@@ -39,6 +65,16 @@
       },
       "storage": {
         "content": {}
+      },
+      "custom": {
+        "documentHandlerSNS": {},
+        "deleteEntityDocumentsSNSTopic": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2cu5dsnj80vpt",
+          "type": "manual"
+        }
       }
     }
   },

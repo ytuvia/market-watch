@@ -10,9 +10,9 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 
 // api import
-import { API, graphqlOperation } from 'aws-amplify';
-import { createEntity } from 'graphql/mutations'
 import { useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { addEntity } from '../../store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -27,6 +27,8 @@ const modalStyle = {
 };
 
 const AddModal = () => {
+    const dispatch = useDispatch();
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -39,12 +41,7 @@ const AddModal = () => {
   
     const handleAdd = async () => {
       setIsDisabled(true);
-      const result = await API.graphql(graphqlOperation(createEntity, {
-        'input':{
-          'name': entityName
-        }
-      }));
-      console.log(result);
+      await dispatch(addEntity({ name: entityName }))
       setIsDisabled(false);
       handleClose();
     }

@@ -22,7 +22,7 @@ const Logo = () => {
      * <img src={logo} alt="Mantis" width="100" />
      *
      */
-    <Typography id="logo_text" variant="h3" component="h3">Market Watch</Typography>
+    <Typography id="logo_text" variant="h3" component="h3">Fēnxī</Typography>
   );
 };
 

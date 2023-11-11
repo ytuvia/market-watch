@@ -7,6 +7,17 @@ type Entity @model {
   name: String!
   documents: [Document] @hasMany
   answers: [Answer] @hasMany
+  assistant: EntityAssistant @hasOne
+  threads: EntityThread @hasMany
+}
+
+type EntityAssistant @model {
+  id: String!
+  name: String!
+}
+
+type EntityThread @model {
+  id: String!
 }
 
 type Document @model {
@@ -30,5 +41,7 @@ type Mutation {
 }
 
 type Query {
+  countDocuments(id: ID!): Int @function(name: "countDocuments-${env}")
+  countAnswers(id: ID!): Int @function(name: "countAnswers-${env}")
   countTokens(id: ID!): Int @function(name: "countTokens-${env}")
 }
