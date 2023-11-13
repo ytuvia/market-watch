@@ -29,8 +29,20 @@ export const getEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
       __typename
     }
   }
@@ -47,6 +59,73 @@ export const listEntities = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        entityAssistantId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getEntityAssistant = /* GraphQL */ `
+  query GetEntityAssistant($id: ID!) {
+    getEntityAssistant(id: $id) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listEntityAssistants = /* GraphQL */ `
+  query ListEntityAssistants(
+    $filter: ModelEntityAssistantFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEntityAssistants(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getEntityThread = /* GraphQL */ `
+  query GetEntityThread($id: ID!) {
+    getEntityThread(id: $id) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
+      __typename
+    }
+  }
+`;
+export const listEntityThreads = /* GraphQL */ `
+  query ListEntityThreads(
+    $filter: ModelEntityThreadFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEntityThreads(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        status
+        createdAt
+        updatedAt
+        entityThreadsId
         __typename
       }
       nextToken
@@ -59,7 +138,6 @@ export const getDocument = /* GraphQL */ `
     getDocument(id: $id) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId
@@ -77,7 +155,6 @@ export const listDocuments = /* GraphQL */ `
       items {
         id
         filename
-        content
         createdAt
         updatedAt
         entityDocumentsId

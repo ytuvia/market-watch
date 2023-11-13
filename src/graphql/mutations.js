@@ -22,8 +22,20 @@ export const createEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
       __typename
     }
   }
@@ -44,8 +56,20 @@ export const updateEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
       __typename
     }
   }
@@ -66,8 +90,107 @@ export const deleteEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
+      __typename
+    }
+  }
+`;
+export const createEntityAssistant = /* GraphQL */ `
+  mutation CreateEntityAssistant(
+    $input: CreateEntityAssistantInput!
+    $condition: ModelEntityAssistantConditionInput
+  ) {
+    createEntityAssistant(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateEntityAssistant = /* GraphQL */ `
+  mutation UpdateEntityAssistant(
+    $input: UpdateEntityAssistantInput!
+    $condition: ModelEntityAssistantConditionInput
+  ) {
+    updateEntityAssistant(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteEntityAssistant = /* GraphQL */ `
+  mutation DeleteEntityAssistant(
+    $input: DeleteEntityAssistantInput!
+    $condition: ModelEntityAssistantConditionInput
+  ) {
+    deleteEntityAssistant(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createEntityThread = /* GraphQL */ `
+  mutation CreateEntityThread(
+    $input: CreateEntityThreadInput!
+    $condition: ModelEntityThreadConditionInput
+  ) {
+    createEntityThread(input: $input, condition: $condition) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
+      __typename
+    }
+  }
+`;
+export const updateEntityThread = /* GraphQL */ `
+  mutation UpdateEntityThread(
+    $input: UpdateEntityThreadInput!
+    $condition: ModelEntityThreadConditionInput
+  ) {
+    updateEntityThread(input: $input, condition: $condition) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
+      __typename
+    }
+  }
+`;
+export const deleteEntityThread = /* GraphQL */ `
+  mutation DeleteEntityThread(
+    $input: DeleteEntityThreadInput!
+    $condition: ModelEntityThreadConditionInput
+  ) {
+    deleteEntityThread(input: $input, condition: $condition) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
       __typename
     }
   }
@@ -80,7 +203,6 @@ export const createDocument = /* GraphQL */ `
     createDocument(input: $input, condition: $condition) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId
@@ -96,7 +218,6 @@ export const updateDocument = /* GraphQL */ `
     updateDocument(input: $input, condition: $condition) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId
@@ -112,7 +233,6 @@ export const deleteDocument = /* GraphQL */ `
     deleteDocument(input: $input, condition: $condition) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId

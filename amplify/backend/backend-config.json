@@ -464,6 +464,22 @@
         }
       ]
     },
+    "AMPLIFY_function_documentAssistant_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "documentAssistant"
+        }
+      ]
+    },
+    "AMPLIFY_function_documentAssistant_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "documentAssistant"
+        }
+      ]
+    },
     "AMPLIFY_function_fileuploadtrigger_deploymentBucketName": {
       "usedBy": [
         {
@@ -473,6 +489,14 @@
       ]
     },
     "AMPLIFY_function_fileuploadtrigger_doTranslate": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fileuploadtrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_fileuploadtrigger_openaiApiKey": {
       "usedBy": [
         {
           "category": "function",

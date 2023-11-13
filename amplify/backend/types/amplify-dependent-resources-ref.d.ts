@@ -69,6 +69,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "documentAssistant": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "fileuploadtrigger": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

@@ -14,8 +14,20 @@ export const onCreateEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
       __typename
     }
   }
@@ -33,8 +45,20 @@ export const onUpdateEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
       __typename
     }
   }
@@ -52,8 +76,101 @@ export const onDeleteEntity = /* GraphQL */ `
         nextToken
         __typename
       }
+      assistant {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      threads {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      entityAssistantId
+      __typename
+    }
+  }
+`;
+export const onCreateEntityAssistant = /* GraphQL */ `
+  subscription OnCreateEntityAssistant(
+    $filter: ModelSubscriptionEntityAssistantFilterInput
+  ) {
+    onCreateEntityAssistant(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateEntityAssistant = /* GraphQL */ `
+  subscription OnUpdateEntityAssistant(
+    $filter: ModelSubscriptionEntityAssistantFilterInput
+  ) {
+    onUpdateEntityAssistant(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteEntityAssistant = /* GraphQL */ `
+  subscription OnDeleteEntityAssistant(
+    $filter: ModelSubscriptionEntityAssistantFilterInput
+  ) {
+    onDeleteEntityAssistant(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateEntityThread = /* GraphQL */ `
+  subscription OnCreateEntityThread(
+    $filter: ModelSubscriptionEntityThreadFilterInput
+  ) {
+    onCreateEntityThread(filter: $filter) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
+      __typename
+    }
+  }
+`;
+export const onUpdateEntityThread = /* GraphQL */ `
+  subscription OnUpdateEntityThread(
+    $filter: ModelSubscriptionEntityThreadFilterInput
+  ) {
+    onUpdateEntityThread(filter: $filter) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
+      __typename
+    }
+  }
+`;
+export const onDeleteEntityThread = /* GraphQL */ `
+  subscription OnDeleteEntityThread(
+    $filter: ModelSubscriptionEntityThreadFilterInput
+  ) {
+    onDeleteEntityThread(filter: $filter) {
+      id
+      status
+      createdAt
+      updatedAt
+      entityThreadsId
       __typename
     }
   }
@@ -63,7 +180,6 @@ export const onCreateDocument = /* GraphQL */ `
     onCreateDocument(filter: $filter) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId
@@ -76,7 +192,6 @@ export const onUpdateDocument = /* GraphQL */ `
     onUpdateDocument(filter: $filter) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId
@@ -89,7 +204,6 @@ export const onDeleteDocument = /* GraphQL */ `
     onDeleteDocument(filter: $filter) {
       id
       filename
-      content
       createdAt
       updatedAt
       entityDocumentsId

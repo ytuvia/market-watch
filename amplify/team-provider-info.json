@@ -102,10 +102,103 @@
           "restapiEndpoint": "https://y3vg49x649.execute-api.us-west-2.amazonaws.com"
         },
         "marketwatch": {},
-        "deleteEntity": {}
+        "deleteEntity": {},
+        "countAnswers": {},
+        "countDocuments": {},
+        "countTokens": {},
+        "deleteEntityDocuments": {},
+        "documentAssistant": {},
+        "fileuploadtrigger": {},
+        "gmailEmbedHandler": {},
+        "handleDocument": {},
+        "content": {}
       },
       "auth": {
         "marketwatch53bd761f": {}
+      },
+      "storage": {
+        "content": {}
+      }
+    }
+  },
+  "assistant": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketwatch-assistant-134235-authRole",
+      "UnauthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-assistant-134235-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::271936189865:role/amplify-marketwatch-assistant-134235-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+      "UnauthRoleName": "amplify-marketwatch-assistant-134235-unauthRole",
+      "StackName": "amplify-marketwatch-assistant-134235",
+      "StackId": "arn:aws:cloudformation:us-west-2:271936189865:stack/amplify-marketwatch-assistant-134235/2c35ed20-8098-11ee-90bf-02fcc18ba6a1",
+      "AmplifyAppId": "d2cu5dsnj80vpt",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-assistant-134235-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "auth": {
+        "marketwatch53bd761f": {}
+      },
+      "function": {
+        "countAnswers": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/countAnswers-366742716433782b3968-build.zip"
+        },
+        "countDocuments": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/countDocuments-3548785041446d305073-build.zip"
+        },
+        "countTokens": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
+        },
+        "deleteEntity": {
+          "pgDsn": "",
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/deleteEntity-6a44487279534d316c38-build.zip"
+        },
+        "deleteEntityDocuments": {
+          "doTranslate": "0",
+          "restapiEndpoint": "",
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/deleteEntityDocuments-416b474f64484c47486f-build.zip"
+        },
+        "documentAssistant": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/documentAssistant-796b44686147396b5454-build.zip"
+        },
+        "fileuploadtrigger": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/fileuploadtrigger-70795a76346f6b336c34-build.zip",
+          "restapiEndpoint": "",
+          "doTranslate": "0",
+          "openaiApiKey": "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"
+        },
+        "gmailEmbedHandler": {
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/gmailEmbedHandler-58625143615264694557-build.zip"
+        },
+        "handleDocument": {
+          "doTranslate": "0",
+          "restapiEndpoint": "",
+          "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
+          "s3Key": "amplify-builds/handleDocument-594f7a5571514f46324a-build.zip"
+        },
+        "marketwatch": {},
+        "content": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2cu5dsnj80vpt",
+          "type": "manual"
+        }
+      },
+      "api": {
+        "marketwatch": {},
+        "restapicontainer": {}
+      },
+      "custom": {
+        "deleteEntityDocumentsSNSTopic": {},
+        "documentHandlerSNS": {}
       },
       "storage": {
         "content": {}

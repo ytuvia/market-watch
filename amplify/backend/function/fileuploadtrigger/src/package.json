@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1478.0",
-    "axios": "^1.6.0"
+    "axios": "^1.6.0",
+    "openai": "^4.17.4"
   }
 }

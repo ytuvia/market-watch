@@ -40,7 +40,7 @@ export class cdkStack extends cdk.Stack {
       description: 'The arn of the SNS topic',
     })
 
-    
+    /*
     const lmbdFunc = lambda.Function.fromFunctionName(this, 'DocumentHandlerFunc', `handleDocument-${cdk.Fn.ref('env')}`)
 
     
@@ -50,5 +50,6 @@ export class cdkStack extends cdk.Stack {
           batchSize: 10,
       }),
     );
+    */
   }
 }

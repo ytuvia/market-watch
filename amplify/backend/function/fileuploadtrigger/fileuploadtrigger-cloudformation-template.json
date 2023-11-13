@@ -33,6 +33,9 @@
     },
     "doTranslate": {
       "Type": "String"
+    },
+    "openaiApiKey": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -102,6 +105,9 @@
             },
             "DO_TRANSLATE": {
               "Ref": "doTranslate"
+            },
+            "OPENAI_API_KEY": {
+              "Ref": "openaiApiKey"
             }
           }
         },

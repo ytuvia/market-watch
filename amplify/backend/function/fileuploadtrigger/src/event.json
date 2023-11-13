@@ -4,33 +4,33 @@
             "eventVersion": "2.1",
             "eventSource": "aws:s3",
             "awsRegion": "us-west-2",
-            "eventTime": "2023-10-28T17:56:34.071Z",
+            "eventTime": "2023-11-12T18:59:02.423Z",
             "eventName": "ObjectCreated:Put",
             "userIdentity": {
-                "principalId": "AWS:AROAT6UFI6WUXKPRV5SC2:CognitoIdentityCredentials"
+                "principalId": "AWS:AROAT6UFI6WUX756AWW2I:CognitoIdentityCredentials"
             },
             "requestParameters": {
                 "sourceIPAddress": "82.81.31.17"
             },
             "responseElements": {
-                "x-amz-request-id": "TEF2JMDE8XG46ZZQ",
-                "x-amz-id-2": "SPQpFX9zK+QfV6QsxNYsmXNwMxCwaL/xoma/YdM2bvdMgJ2UUGkdH5cTWTnxSaAOXf9/jsjdmbiKSivqVeCpWLI6NVygzwKc"
+                "x-amz-request-id": "A7YE2Q7TMQN7J504",
+                "x-amz-id-2": "HTKgNBin64AdolmmiqyJWvaYVz2aqlqV3ZgFkQSw/CYT2O30/5FRxGQDxUg4yDSkFh/L0GX9pIAptdT7Q5+csrURoZll0t0c"
             },
             "s3": {
                 "s3SchemaVersion": "1.0",
-                "configurationId": "ODVmODVkYzgtN2ZiMy00ZjhiLWI1NWQtMTJiMTNhMTM2OTY0",
+                "configurationId": "fbc0129e-f9de-4523-9d2e-b39b5f4c3bde",
                 "bucket": {
-                    "name": "market-watch212854-main",
+                    "name": "market-watch134235-assistant",
                     "ownerIdentity": {
                         "principalId": "A2Z41NIUN7VT4T"
                     },
-                    "arn": "arn:aws:s3:::market-watch212854-main"
+                    "arn": "arn:aws:s3:::market-watch134235-assistant"
                 },
                 "object": {
-                    "key": "public/bf193aac-b46d-414b-994e-b3a62dff85ec/d4ff6965-2eef-4a20-b595-c77f2ec74c9d.csv",
+                    "key": "public/25deba71-0524-4b22-9169-cb98b2b5b24b/98415210-bee1-4881-9076-1af762ff8e06.csv",
                     "size": 507554,
                     "eTag": "c2ee1c4995af59cfc7fec9da5fe6bc94",
-                    "sequencer": "00653D4B51F1AB2BE5"
+                    "sequencer": "00655120764ADE2EEA"
                 }
             }
         }

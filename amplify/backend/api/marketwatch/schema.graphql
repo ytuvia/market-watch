@@ -8,7 +8,7 @@ type Entity @model {
   documents: [Document] @hasMany
   answers: [Answer] @hasMany
   assistant: EntityAssistant @hasOne
-  threads: EntityThread @hasMany
+  threads: [EntityThread] @hasMany
 }
 
 type EntityAssistant @model {
@@ -18,12 +18,12 @@ type EntityAssistant @model {
 
 type EntityThread @model {
   id: String!
+  status: String
 }
 
 type Document @model {
-  id: ID!
+  id: String!
   filename: String!
-  content: String!
 }
 
 type Answer @model {
