@@ -6,11 +6,12 @@ import {
     Stack } from '@mui/material';
 import DeleteButton from './DeleteButton';
 import AskModal from './AskModal';
+import ChatModal from './ChatModal';
 import UploadModal from './UploadModal';
 import AnswersModal from './AnswersModal';
 import DocumentsModal from './DocumentsModel';
 import { useSelector } from 'react-redux';
-import { selectEntityById } from '../../store/reducers/entities/entitiesSlice';
+import { selectEntityById } from 'store/reducers/entities/entitiesSlice';
 
 // project import
 import MainCard from 'components/MainCard';
@@ -44,7 +45,7 @@ const DashboardCard = ({id}) =>{
         </CardContent>
         <CardActions>
           <UploadModal id={entity.id} name={entity.name}></UploadModal>
-          <AskModal id={entity.id} name={entity.name}></AskModal>
+          <ChatModal id={entity.id}></ChatModal>
         </CardActions>
       </MainCard>
     )

@@ -35,7 +35,7 @@
     "doTranslate": {
       "Type": "String"
     },
-    "restapiEndpoint": {
+    "openaiApiKey": {
       "Type": "String"
     }
   },
@@ -107,8 +107,8 @@
             "DO_TRANSLATE": {
               "Ref": "doTranslate"
             },
-            "RESTAPI_ENDPOINT": {
-              "Ref": "restapiEndpoint"
+            "OPENAI_API_KEY": {
+              "Ref": "openaiApiKey"
             }
           }
         },

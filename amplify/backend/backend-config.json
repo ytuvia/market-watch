@@ -424,7 +424,7 @@
         }
       ]
     },
-    "AMPLIFY_function_deleteEntityDocuments_restapiEndpoint": {
+    "AMPLIFY_function_deleteEntityDocuments_openaiApiKey": {
       "usedBy": [
         {
           "category": "function",
@@ -448,7 +448,7 @@
         }
       ]
     },
-    "AMPLIFY_function_deleteEntity_pgDsn": {
+    "AMPLIFY_function_deleteEntity_openaiApiKey": {
       "usedBy": [
         {
           "category": "function",

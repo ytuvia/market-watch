@@ -152,15 +152,15 @@
           "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
         },
         "deleteEntity": {
-          "pgDsn": "",
           "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
-          "s3Key": "amplify-builds/deleteEntity-6a44487279534d316c38-build.zip"
+          "s3Key": "amplify-builds/deleteEntity-57524e57373351794d61-build.zip",
+          "openaiApiKey": "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"
         },
         "deleteEntityDocuments": {
-          "doTranslate": "0",
-          "restapiEndpoint": "",
           "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",
-          "s3Key": "amplify-builds/deleteEntityDocuments-416b474f64484c47486f-build.zip"
+          "s3Key": "amplify-builds/deleteEntityDocuments-37464147796331414546-build.zip",
+          "doTranslate": "0",
+          "openaiApiKey": "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"
         },
         "documentAssistant": {
           "deploymentBucketName": "amplify-marketwatch-assistant-134235-deployment",

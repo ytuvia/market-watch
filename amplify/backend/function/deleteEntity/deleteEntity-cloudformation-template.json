@@ -32,7 +32,7 @@
       "Type": "String",
       "Default": "storagecontentBucketName"
     },
-    "pgDsn": {
+    "openaiApiKey": {
       "Type": "String"
     }
   },
@@ -101,8 +101,8 @@
             "STORAGE_CONTENT_BUCKETNAME": {
               "Ref": "storagecontentBucketName"
             },
-            "PG_DSN": {
-              "Ref": "pgDsn"
+            "OPENAI_API_KEY": {
+              "Ref": "openaiApiKey"
             }
           }
         },

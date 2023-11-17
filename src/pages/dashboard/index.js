@@ -10,7 +10,7 @@ import DashboardCard from './DashboardCard';
 // api import
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { selectAllEntities, fetchEntities } from '../../store/reducers/entities/entitiesSlice';
+import { selectAllEntities, fetchEntities } from 'store/reducers/entities/entitiesSlice';
 
 const DashboardDefault = () => {
   const dispatch = useDispatch();

@@ -205,6 +205,21 @@ export const saveAnswer = createAsyncThunk(
   }
 )
 
+export const deleteEmbedding = createAsyncThunk(
+  'entities/delete_embedding',
+  async initialData => {
+    const postData = {
+      'entity_id': initialData.id,
+    }
+    const response = await axios.post(API_ENDPOINT + '/entity/remove_embedding', postData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  }
+)
+
 const entities = createSlice({
   name: 'entities',
   initialState,
@@ -305,6 +320,17 @@ const entities = createSlice({
         state.status = 'succeeded'
       })
       .addCase(askQuestion.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
+      .addCase(deleteEmbedding.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(deleteEmbedding.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+      })
+      .addCase(deleteEmbedding.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })

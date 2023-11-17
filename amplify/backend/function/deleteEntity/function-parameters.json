@@ -19,8 +19,8 @@
   },
   "environmentVariableList": [
     {
-      "cloudFormationParameterName": "pgDsn",
-      "environmentVariableName": "PG_DSN"
+      "cloudFormationParameterName": "openaiApiKey",
+      "environmentVariableName": "OPENAI_API_KEY"
     }
   ]
 }

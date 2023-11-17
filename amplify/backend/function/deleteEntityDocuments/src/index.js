@@ -10,7 +10,11 @@ Amplify Params - DO NOT EDIT */
 const { executeQuery } = require("./appsync");
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
-const { Pool } = require('pg');
+const OpenAI = require('openai');
+
+const openai = new OpenAI({
+    apiKey: process.env["OPENAI_API_KEY"]
+});
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -44,39 +48,10 @@ const handleMessage = async (document) => {
 
 
 async function delete_embeddings(id){
-    // Configure the PostgreSQL connection settings
-    const pool = new Pool({
-        user: 'postgres',
-        host: 'market-watch-vector.co21yocebc1p.us-west-2.rds.amazonaws.com',
-        database: 'marketwatch',
-        password: 'mcFwHct7369FWba',
-        port: 5432, // Default PostgreSQL port
+    const file = await openai.beta.files.delete({
+        file_id: id
     });
-  
-    // Define the SQL query to delete documents from your table
-    const deleteQuery = `
-    DELETE FROM documents
-    WHERE id = $1;
-    `;
-
-    // Parameters for the query (e.g., the value you want to match for deletion)
-    const queryParams = [id];
-
-    return new Promise((resolve, reject) => {
-        // Execute the delete query
-        pool.query(deleteQuery, queryParams, (err, result) => {
-            if (err) {
-                console.error('Error executing query:', err);
-                reject(err);
-            } else {
-                console.log('Deleted', result.rowCount, 'documents.');
-                resolve(result.rowCount);
-            }
-
-            // Close the database connection
-            pool.end();
-        });
-    })
+    return file;
 }
 
 
@@ -85,7 +60,6 @@ async function delete_file(key) {
         "Bucket": process.env.STORAGE_CONTENT_BUCKETNAME,
         "Key": key,
     };
-    console.log(params);
     let s3Action = await new Promise((resolve, reject) => {
         s3.deleteObject(params, function (err, data) {
             if (err) {

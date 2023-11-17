@@ -110,7 +110,6 @@ def get_entity(id):
         }
     """
     response = query_api(query, variables)
-    print(response)
     data = response['data']['getEntity']
     return data
 
@@ -162,6 +161,26 @@ def create_entity_thread(entity, thread):
     """
     response = query_api(query, variables)
     return thread
+
+def get_entity_thread(entity_id):
+    entity = get_entity(entity_id)
+    print(entity)
+    saved_threads = entity.get('threads').get('items')
+    if len(saved_threads) > 0:
+        saved_thread = saved_threads[0]
+        thread = client.beta.threads.retrieve(
+            thread_id=saved_thread.get('id')
+        )
+        return thread
+    else:
+       (assistant, thread) = build_infrastructure(entity_id)
+       return thread
+
+def get_entity_messages(entity_id):
+    thread = get_entity_thread(entity_id)
+    messages = client.beta.threads.messages.list(thread_id=thread.id)
+    show_json(messages)
+    return messages
 
 def update_document_file(id, openai_id):
     variables = {
@@ -226,12 +245,59 @@ def submit_message(assistant_id, thread, user_message):
         assistant_id=assistant_id,
     )
 
-def create_thread_and_run(user_input):
-    thread = client.beta.threads.create()
-    run = submit_message(MATH_ASSISTANT_ID, thread, user_input)
-    return thread, run
-
 def get_response(thread):
     return client.beta.threads.messages.list(thread_id=thread.id, order="asc")
 
-#run_assistance('efdcbb44-ec37-4893-806e-819203270c0a', 'please summarize the file')
+def delete_thread(entity_id):
+    thread = get_entity_thread(entity_id)
+    variables = {
+        'input':{
+            'id': thread.id
+        }
+    }
+    query = """
+        mutation DeleteEntityThread($input: DeleteEntityThreadInput!) {
+            deleteEntityThread(input: $input) {
+                id
+            }
+        }
+    """
+    response = query_api(query, variables)
+
+    thread = client.beta.threads.delete(
+        thread.id
+    )
+    return thread
+
+def delete_entity_embedding(entity_id):
+    entity = get_entity(entity_id)
+    saved_documents = entity['documents']['items']
+    for document in saved_documents:
+        file = client.files.delete(
+            document.get('id')
+        )
+
+def delete_assistant(entity_id):
+    entity = get_entity(entity_id)
+    assistant = entity.get('assistant', None)
+    if assistant:
+        variables = {
+            'input':{
+                'id': assistant.get('id')
+            }
+        }
+        query = """
+            mutation DeleteEntityAssistant($input: DeleteEntityAssistantInput!) {
+                deleteEntityAssistant(input: $input) {
+                    id
+                }
+            }
+        """
+        response = query_api(query, variables)
+
+        assistant = client.beta.assistants.delete(
+            entity['assistant']['id']
+        )
+    
+    return assistant
+

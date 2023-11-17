@@ -6,6 +6,7 @@ from question_agent import ask_entity
 from lib.embedding import insert_row
 from pdf_utils import read_pdf_file
 from csv_utils import read_csv_file
+from entity_assistant import run_assistance, get_entity_thread, get_entity_messages, delete_thread, delete_assistant, delete_entity_embedding
 
 class S3KeyInput(BaseModel):
     bucket: str
@@ -15,6 +16,10 @@ class AskInput(BaseModel):
     entity_id: str
     question: str
 
+class ChatInput(BaseModel):
+    entity_id: str
+    message: str
+
 class TranslateInput(BaseModel):
     document_id: str
     source_lang: str
@@ -22,6 +27,9 @@ class TranslateInput(BaseModel):
 
 class DocumentInput(BaseModel):
     document_id: str
+
+class EntityInput(BaseModel):
+    entity_id: str
 
 app = FastAPI()
 origins = [
@@ -55,9 +63,39 @@ async def ask_question(input: AskInput):
     except Exception as e:
         return(f"An error occurred: {e}")
 
+@app.post("/chat")
+async def chat(input: ChatInput):
+    result = run_assistance(input.entity_id, input.message)
+    return result
+
+@app.post("/thread")
+async def entity_thread(input: EntityInput):
+    result = get_entity_thread(input.entity_id)
+    return result
+
+@app.post("/thread/messages")
+async def entity_thread_messages(input: EntityInput):
+    result = get_entity_messages(input.entity_id)
+    return result
+
+@app.post("/thread/delete")
+async def entity_thread_delete(input: EntityInput):
+    result = delete_thread(input.entity_id)
+    return result
+
+@app.post("/assistant/delete")
+async def entity_assistant_delete(input: EntityInput):
+    result = delete_assistant(input.entity_id)
+    return result
+
 @app.post("/embed/document")
 async def embed_document(input: DocumentInput):
     result = insert_row(input.document_id)
+    return result
+
+@app.post("/entity/remove_embedding")
+async def embedding_entity_delete(input: EntityInput):
+    result = delete_entity_embedding(input.entity_id)
     return result
 
 @app.post("/read_pdf")

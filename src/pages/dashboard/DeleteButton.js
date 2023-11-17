@@ -9,7 +9,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteEntity } from '../../store/reducers/entities/entitiesSlice';
+import { deleteEntity, deleteEmbedding } from 'store/reducers/entities/entitiesSlice';
+import { sendClearThread, sendClearAssistant } from 'store/reducers/threads/threadsSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -33,7 +34,10 @@ const DeleteButton = ({ id, name }) => {
 
     const handleRemove = async () => {
         setIsDisabled(true);
-        await dispatch(deleteEntity({ id: id }))
+        await dispatch(deleteEmbedding({ id: id }));
+        await dispatch(sendClearThread({ id: id }));
+        await dispatch(sendClearAssistant({ id: id }));
+        await dispatch(deleteEntity({ id: id }));
         setIsDisabled(false);
         handleClose();
     }
