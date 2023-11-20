@@ -28,9 +28,6 @@
       "Type": "String",
       "Default": "apimarketwatchGraphQLAPIKeyOutput"
     },
-    "restapiEndpoint": {
-      "Type": "String"
-    },
     "doTranslate": {
       "Type": "String"
     },
@@ -99,9 +96,6 @@
             },
             "API_MARKETWATCH_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apimarketwatchGraphQLAPIKeyOutput"
-            },
-            "RESTAPI_ENDPOINT": {
-              "Ref": "restapiEndpoint"
             },
             "DO_TRANSLATE": {
               "Ref": "doTranslate"

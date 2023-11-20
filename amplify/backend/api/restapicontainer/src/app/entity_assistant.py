@@ -51,7 +51,7 @@ def build_infrastructure(entity_id):
             model=GPT_MODEL,
         )
         create_entity_assistant(entity, assistant)
-        assistant = emmbed_assistant_documents(assistant, saved_documents)
+    assistant = emmbed_assistant_documents(assistant, saved_documents)
 
     show_json(assistant)
     if(len(saved_threads)>0):
@@ -301,3 +301,24 @@ def delete_assistant(entity_id):
     
     return assistant
 
+def delete_file(file_id):
+    variables = {
+        'input':{
+            'id': file_id
+        }
+    }
+    query = """
+        mutation DeleteDocument($input: DeleteDocumentInput!) {
+            deleteDocument(input: $input) {
+                id
+                entityDocumentsId
+            }
+        }
+    """
+    response = query_api(query, variables)
+
+    file = client.files.delete(
+        file_id
+    )
+
+    return response['data']['deleteDocument']

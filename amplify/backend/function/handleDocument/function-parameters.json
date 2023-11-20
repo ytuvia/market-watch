@@ -21,10 +21,6 @@
     {
       "cloudFormationParameterName": "doTranslate",
       "environmentVariableName": "DO_TRANSLATE"
-    },
-    {
-      "cloudFormationParameterName": "restapiEndpoint",
-      "environmentVariableName": "RESTAPI_ENDPOINT"
     }
   ]
 }

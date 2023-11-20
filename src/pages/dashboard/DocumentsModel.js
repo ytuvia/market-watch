@@ -13,14 +13,15 @@ import {
 import ArticleIcon from '@mui/icons-material/Article';
 import DownloadIcon from '@mui/icons-material/Download';
 import TokenIcon from '@mui/icons-material/Token';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { countTokens } from 'graphql/queries'
 import { useState } from 'react';
 import { Storage } from 'aws-amplify';
 
-import { useDispatch } from 'react-redux';
-import { fetchDocumentsPage } from '../../store/reducers/entities/entitiesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDocumentsPage, selectEntityDocuments, deleteDocument } from 'store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',
@@ -35,6 +36,7 @@ const modalStyle = {
 };
 
 const DownloadButton =  ({filename}) => {
+  filename = filename.replace(/^public\//, '');
   const [isDisabled, setIsDisabled] = useState(false);
   const downloadBlob = (blob, filename) => {
     const url = URL.createObjectURL(blob);
@@ -54,7 +56,10 @@ const DownloadButton =  ({filename}) => {
 
   const handleDownload = async () => {
     setIsDisabled(true);
+    console.log(filename);
+
     const result = await Storage.get(filename, { download: true });
+    console.log(result);
     downloadBlob(result.Body, filename);
     setIsDisabled(false);
   };
@@ -95,11 +100,26 @@ const TokensButton =  ({id}) => {
   )
 }
 
+const DeleteButton = ({id}) => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const handleDelete = async () => {
+    setIsLoading(true);
+    await dispatch(deleteDocument({id: id}));
+    setIsLoading(false);
+  }
+  return (
+      <IconButton edge="end" aria-label="comments" onClick={handleDelete} disabled={isLoading}>
+        <DeleteIcon />
+      </IconButton>
+  )
+}
+
 const DocumentsModal = ({entityId, name}) => {
     const dispatch = useDispatch();
-    const [documents, setDocuments] = useState([]);
     const [nextToken, setNextToken] = useState(null);
     const [open, setOpen] = useState(false);
+    const documents = useSelector(state=>selectEntityDocuments(state, entityId));
     const handleOpen = async () => {
       const result = await dispatch(
         fetchDocumentsPage({ 
@@ -107,7 +127,6 @@ const DocumentsModal = ({entityId, name}) => {
           nextToken: nextToken
         })
       ).unwrap();
-      setDocuments(result.items);
       setNextToken(result.nextToken);
       setOpen(true);
     }
@@ -136,7 +155,7 @@ const DocumentsModal = ({entityId, name}) => {
                       key={item.id}
                       secondaryAction={
                         <Stack direction="row" justifyContent="center" alignItems="center" spacing="1">
-                          <DownloadButton filename={`${entityId}/${item.filename}`} /><TokensButton id={item.id} />
+                          <DownloadButton filename={item.filename} /><DeleteButton id={item.id} />
                         </Stack>
                       }
                       disablePadding

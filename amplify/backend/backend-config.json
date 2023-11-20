@@ -504,14 +504,6 @@
         }
       ]
     },
-    "AMPLIFY_function_fileuploadtrigger_restapiEndpoint": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "fileuploadtrigger"
-        }
-      ]
-    },
     "AMPLIFY_function_fileuploadtrigger_s3Key": {
       "usedBy": [
         {
@@ -545,14 +537,6 @@
       ]
     },
     "AMPLIFY_function_handleDocument_doTranslate": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "handleDocument"
-        }
-      ]
-    },
-    "AMPLIFY_function_handleDocument_restapiEndpoint": {
       "usedBy": [
         {
           "category": "function",

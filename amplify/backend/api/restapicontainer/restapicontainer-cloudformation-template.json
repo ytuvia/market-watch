@@ -249,7 +249,7 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/amplify-marketwatch-assistant-134235-api-restapicontainer-api:latest"
+                  "/amplify-marketwatch-demo-150330-api-restapicontainer-api:latest"
                 ]
               ]
             },
@@ -350,7 +350,7 @@
                     {
                       "Ref": "AWS::AccountId"
                     },
-                    ":repository/amplify-marketwatch-assistant-134235-api-restapicontainer-api"
+                    ":repository/amplify-marketwatch-demo-150330-api-restapicontainer-api"
                   ]
                 ]
               }
@@ -1000,7 +1000,7 @@
                         {
                           "Ref": "AWS::URLSuffix"
                         },
-                        "/amplify-marketwatch-assistant-134235-api-restapicontainer-api\"}]"
+                        "/amplify-marketwatch-demo-150330-api-restapicontainer-api\"}]"
                       ]
                     ]
                   }

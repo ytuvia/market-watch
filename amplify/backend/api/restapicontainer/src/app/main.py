@@ -6,7 +6,7 @@ from question_agent import ask_entity
 from lib.embedding import insert_row
 from pdf_utils import read_pdf_file
 from csv_utils import read_csv_file
-from entity_assistant import run_assistance, get_entity_thread, get_entity_messages, delete_thread, delete_assistant, delete_entity_embedding
+from entity_assistant import run_assistance, get_entity_thread, get_entity_messages, delete_thread, delete_assistant, delete_entity_embedding, delete_file
 
 class S3KeyInput(BaseModel):
     bucket: str
@@ -86,6 +86,11 @@ async def entity_thread_delete(input: EntityInput):
 @app.post("/assistant/delete")
 async def entity_assistant_delete(input: EntityInput):
     result = delete_assistant(input.entity_id)
+    return result
+
+@app.post("/document/delete")
+async def delete_document(input: DocumentInput):
+    result = delete_file(input.document_id)
     return result
 
 @app.post("/embed/document")

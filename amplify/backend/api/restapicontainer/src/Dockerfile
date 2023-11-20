@@ -6,7 +6,7 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 ENV REGION=us-west-2
 
-ENV OPENAPI_KEY=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
+ENV OPENAPI_KEY=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
 ENV PG_DSN=postgresql://postgres:mcFwHct7369FWba@market-watch-vector.co21yocebc1p.us-west-2.rds.amazonaws.com:5432/marketwatch
 
 # for Amplify 

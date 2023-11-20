@@ -220,6 +220,21 @@ export const deleteEmbedding = createAsyncThunk(
   }
 )
 
+export const deleteDocument = createAsyncThunk(
+  'document/delete',
+  async initialData => {
+    const postData = {
+      'document_id': initialData.id,
+    }
+    const response = await axios.post(API_ENDPOINT + '/document/delete', postData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  }
+)
+
 const entities = createSlice({
   name: 'entities',
   initialState,
@@ -253,7 +268,10 @@ const entities = createSlice({
         state.status = 'loading'
       })
       .addCase(fetchDocumentsPage.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = 'succeeded';
+        const id = action.meta.arg.id;
+        const entity = state.entities.find(entity=>entity.id == id);
+        entity.documents = action.payload.items;
       })
       .addCase(fetchDocumentsPage.rejected, (state, action) => {
         state.status = 'failed'
@@ -335,6 +353,22 @@ const entities = createSlice({
         state.error = action.error.message
       })
 
+      .addCase(deleteDocument.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(deleteDocument.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        const document_id = action.meta.arg.id;
+        const entity_id = action.payload.entityDocumentsId;
+        const entity = state.entities.find(entity=>entity.id == entity_id);
+        entity.documents = entity.documents.filter(document=>document.id===document_id);
+        entity.documentCount = entity.documentCount - 1
+      })
+      .addCase(deleteDocument.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
   }
 })
 
@@ -344,3 +378,9 @@ export const selectAllEntities = state => state.entities.entities
 
 export const selectEntityById = (state, entityId) =>
   state.entities.entities.find(entity => entity.id === entityId)
+
+export const selectEntityDocuments = (state, entityId) => {
+  const entity = state.entities.entities.find(entity => entity.id === entityId);
+
+  return entity.documents;
+}

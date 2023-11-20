@@ -11,10 +11,6 @@
   "lambdaLayers": [],
   "environmentVariableList": [
     {
-      "cloudFormationParameterName": "restapiEndpoint",
-      "environmentVariableName": "RESTAPI_ENDPOINT"
-    },
-    {
       "cloudFormationParameterName": "doTranslate",
       "environmentVariableName": "DO_TRANSLATE"
     },

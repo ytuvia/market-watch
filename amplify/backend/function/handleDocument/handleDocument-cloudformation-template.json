@@ -34,9 +34,6 @@
     },
     "doTranslate": {
       "Type": "String"
-    },
-    "restapiEndpoint": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -106,9 +103,6 @@
             },
             "DO_TRANSLATE": {
               "Ref": "doTranslate"
-            },
-            "RESTAPI_ENDPOINT": {
-              "Ref": "restapiEndpoint"
             }
           }
         },
