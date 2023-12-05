@@ -18,12 +18,6 @@ const DrawerHeader = ({ open }) => {
     <DrawerHeaderStyled theme={theme} open={open}>
       <Stack direction="row" spacing={1} alignItems="center">
         <Logo />
-        <Chip
-          label="v0.1.0"
-          size="small"
-          sx={{ height: 16, '& .MuiChip-label': { fontSize: '0.625rem', py: 0.25 } }}
-          component="p"
-        />
       </Stack>
     </DrawerHeaderStyled>
   );

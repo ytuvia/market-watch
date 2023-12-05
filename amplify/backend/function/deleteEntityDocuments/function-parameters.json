@@ -21,10 +21,9 @@
     {
       "cloudFormationParameterName": "doTranslate",
       "environmentVariableName": "DO_TRANSLATE"
-    },
-    {
-      "cloudFormationParameterName": "openaiApiKey",
-      "environmentVariableName": "OPENAI_API_KEY"
     }
+  ],
+  "secretNames": [
+    "OPENAI_API_KEY"
   ]
 }

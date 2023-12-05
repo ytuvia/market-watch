@@ -1,24 +1,6 @@
 {
   "api": {
-    "marketwatch": {
-      "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDate": "2023-12-20T06:35:02.485Z",
-              "apiKeyExpirationDays": 60,
-              "description": "marketwatchkey"
-            },
-            "authenticationType": "API_KEY"
-          }
-        }
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync"
-    },
-    "restapicontainer": {
+    "apicontainer": {
       "apiType": "REST",
       "build": true,
       "categoryPolicies": [
@@ -128,8 +110,7 @@
       },
       "iamAccessUnavailable": true,
       "imageSource": {
-        "template": "dockerfile-rest-express",
-        "type": "TEMPLATE"
+        "type": "CUSTOM"
       },
       "mutableParametersState": {
         "permissions": {
@@ -143,10 +124,28 @@
         }
       },
       "providerPlugin": "awscloudformation",
-      "resourceName": "restapicontainer",
+      "resourceName": "apicontainer",
       "restrictAccess": false,
       "service": "ElasticContainer",
       "skipHashing": false
+    },
+    "marketwatch": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2023-12-20T06:35:02.485Z",
+              "apiKeyExpirationDays": 60,
+              "description": "marketwatchkey"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   },
   "auth": {
@@ -203,6 +202,22 @@
       "service": "Lambda"
     },
     "countDocuments": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "countThreads": {
       "build": true,
       "dependsOn": [
         {
@@ -392,6 +407,22 @@
         }
       ]
     },
+    "AMPLIFY_function_countThreads_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countThreads"
+        }
+      ]
+    },
+    "AMPLIFY_function_countThreads_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "countThreads"
+        }
+      ]
+    },
     "AMPLIFY_function_countTokens_deploymentBucketName": {
       "usedBy": [
         {
@@ -424,7 +455,7 @@
         }
       ]
     },
-    "AMPLIFY_function_deleteEntityDocuments_openaiApiKey": {
+    "AMPLIFY_function_deleteEntityDocuments_s3Key": {
       "usedBy": [
         {
           "category": "function",
@@ -432,7 +463,7 @@
         }
       ]
     },
-    "AMPLIFY_function_deleteEntityDocuments_s3Key": {
+    "AMPLIFY_function_deleteEntityDocuments_secretsPathAmplifyAppId": {
       "usedBy": [
         {
           "category": "function",
@@ -489,14 +520,6 @@
       ]
     },
     "AMPLIFY_function_fileuploadtrigger_doTranslate": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "fileuploadtrigger"
-        }
-      ]
-    },
-    "AMPLIFY_function_fileuploadtrigger_openaiApiKey": {
       "usedBy": [
         {
           "category": "function",

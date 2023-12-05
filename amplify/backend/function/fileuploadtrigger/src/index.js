@@ -10,11 +10,12 @@ const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const fs = require('fs');
 const OpenAI = require('openai');
+const {
+    SecretsManagerClient,
+    GetSecretValueCommand,
+  } = require("@aws-sdk/client-secrets-manager");
 
-const openai = new OpenAI({
-    apiKey: process.env["OPENAI_API_KEY"]
-});
-
+let openai;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -22,6 +23,10 @@ const openai = new OpenAI({
 exports.handler = async (event, context) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
     console.log(`EVENT: ${JSON.stringify(context)}`);
+
+    const apiKey = await getSecret('OPENAI_API_KEY');
+    openai = new OpenAI({ apiKey: apiKey })
+
     let results = [];
     for (const record of event.Records) {
         const eventType = record.eventName;
@@ -48,7 +53,8 @@ async function handleMessage(message){
     const bucket = message.s3.bucket;
     let key = object.key;
     const folders = key.split('/').slice(0, -1);
-    const filename = folders[folders.length-1];
+    const filenameWithExtension = folders[folders.length-1];
+    const [filename, fileExtension] = filenameWithExtension.split('.');
     const entityId = folders[folders.length - 1];
     const localfile = `/tmp/${filename}`;
     const localFileStream = fs.createWriteStream(localfile);
@@ -101,4 +107,28 @@ async function createDocument(id, entityId, filename){
     }`
     let result = await executeQuery(query, variables);
     return result.data?.createDocument;
+}
+
+async function getSecret(secret_name){
+    const client = new SecretsManagerClient({
+        region: process.env.REGION,
+    });
+    
+    let response;
+    
+    try {
+        response = await client.send(
+            new GetSecretValueCommand({
+                SecretId: secret_name,
+                VersionStage: "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified
+            })
+        );
+    } catch (error) {
+        // For a list of exceptions thrown, see
+        // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        throw error;
+    }
+    
+    const secret = response.SecretString;
+    return secret;
 }

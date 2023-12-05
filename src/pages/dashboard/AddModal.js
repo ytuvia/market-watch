@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 // api import
 import { useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { addEntity } from '../../store/reducers/entities/entitiesSlice';
+import { addEntity } from 'store/reducers/entities/entitiesSlice';
 
 const modalStyle = {
     position: 'absolute',

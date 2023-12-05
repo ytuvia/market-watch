@@ -1,0 +1,22 @@
+[
+  {
+    "Action": ["comprehend:*"],
+    "Resource": ["*"]
+  },
+  {
+    "Action": ["translate:*"],
+    "Resource": ["*"]
+  },
+  {
+    "Action": ["s3:*"],
+    "Resource": ["*"]
+  },
+  {
+    "Action": ["ssm:*"],
+    "Resource": ["*"]
+  },
+  {
+    "Action": ["secretsmanager:*"],
+    "Resource": ["*"]
+  }
+]

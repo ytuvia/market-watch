@@ -6,6 +6,11 @@ export const countDocuments = /* GraphQL */ `
     countDocuments(id: $id)
   }
 `;
+export const countThreads = /* GraphQL */ `
+  query CountThreads($id: ID!) {
+    countThreads(id: $id)
+  }
+`;
 export const countAnswers = /* GraphQL */ `
   query CountAnswers($id: ID!) {
     countAnswers(id: $id)
@@ -106,6 +111,7 @@ export const getEntityThread = /* GraphQL */ `
     getEntityThread(id: $id) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId
@@ -123,6 +129,7 @@ export const listEntityThreads = /* GraphQL */ `
       items {
         id
         status
+        title
         createdAt
         updatedAt
         entityThreadsId

@@ -8,6 +8,7 @@
     "@types/aws-lambda": "^8.10.92"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.454.0",
     "aws-sdk": "^2.1488.0",
     "openai": "^4.19.0"
   }

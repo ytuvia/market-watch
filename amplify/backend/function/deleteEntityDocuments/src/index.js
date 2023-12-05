@@ -1,3 +1,17 @@
+/*
+Use the following code to retrieve configured secrets from SSM:
+
+const aws = require('aws-sdk');
+
+const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: ["OPENAI_API_KEY"].map(secretName => process.env[secretName]),
+    WithDecryption: true,
+  })
+  .promise();
+
+Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
+*/
 /* Amplify Params - DO NOT EDIT
 	API_MARKETWATCH_GRAPHQLAPIENDPOINTOUTPUT
 	API_MARKETWATCH_GRAPHQLAPIIDOUTPUT
@@ -11,16 +25,22 @@ const { executeQuery } = require("./appsync");
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const OpenAI = require('openai');
+const {
+    SecretsManagerClient,
+    GetSecretValueCommand,
+  } = require("@aws-sdk/client-secrets-manager");
 
-const openai = new OpenAI({
-    apiKey: process.env["OPENAI_API_KEY"]
-});
+let openai;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
+    const apiKey = await getSecret('OPENAI_API_KEY');
+    console.log(apiKey);
+    openai = new OpenAI({ apiKey: apiKey })
+
     let results = [];
     for(const record of event.Records){
         const eventJson = JSON.parse(record.body);
@@ -85,4 +105,28 @@ async function delete_document(id){
     }`
     let result = await executeQuery(query, variables);
     return result.data?.deleteDocument;
+}
+
+async function getSecret(secret_name){
+    const client = new SecretsManagerClient({
+        region: process.env.REGION,
+    });
+    
+    let response;
+    
+    try {
+        response = await client.send(
+            new GetSecretValueCommand({
+                SecretId: secret_name,
+                VersionStage: "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified
+            })
+        );
+    } catch (error) {
+        // For a list of exceptions thrown, see
+        // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        throw error;
+    }
+    
+    const secret = response.SecretString;
+    return secret;
 }

@@ -158,6 +158,7 @@ export const createEntityThread = /* GraphQL */ `
     createEntityThread(input: $input, condition: $condition) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId
@@ -173,6 +174,7 @@ export const updateEntityThread = /* GraphQL */ `
     updateEntityThread(input: $input, condition: $condition) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId
@@ -188,6 +190,7 @@ export const deleteEntityThread = /* GraphQL */ `
     deleteEntityThread(input: $input, condition: $condition) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId

@@ -19,6 +19,7 @@ type EntityAssistant @model {
 type EntityThread @model {
   id: String!
   status: String
+  title: String
 }
 
 type Document @model {
@@ -42,6 +43,7 @@ type Mutation {
 
 type Query {
   countDocuments(id: ID!): Int @function(name: "countDocuments-${env}")
+  countThreads(id: ID!): Int @function(name: "countThreads-${env}")
   countAnswers(id: ID!): Int @function(name: "countAnswers-${env}")
   countTokens(id: ID!): Int @function(name: "countTokens-${env}")
 }

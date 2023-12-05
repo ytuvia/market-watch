@@ -1,6 +1,7 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {Typography} from '@mui/material';
+import logo from 'assets/images/logo.jpg';
+import {Typograph, Box} from '@mui/material';
 
 /**
  * if you want to use image instead of <svg> uncomment following.
@@ -22,7 +23,16 @@ const Logo = () => {
      * <img src={logo} alt="Mantis" width="100" />
      *
      */
-    <Typography id="logo_text" variant="h3" component="h3">Fēnxī</Typography>
+    <Box 
+      sx={{
+        backgroundImage:`url(${logo})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "57px",
+        width: "200px"
+        }}
+      >
+    </Box>
   );
 };
 

@@ -1,10 +1,5 @@
-import { createSlice, nanoid, createAsyncThunk  } from '@reduxjs/toolkit'
-import { API, graphqlOperation } from 'aws-amplify';
-import { listEntities, countDocuments, countAnswers } from 'graphql/queries';
-import { onUpdateEntityThread } from 'graphql/subscriptions';
-import { Storage } from 'aws-amplify';
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import awsExports from 'aws-exports';
 
 const API_ENDPOINT = awsExports.aws_cloud_logic_custom[0].endpoint;
@@ -30,6 +25,7 @@ const getEntityThreadMessages = async (id) => {
   const response = await axios.post(API_ENDPOINT + '/thread/messages', postData, {
     headers: {
       'Content-Type': 'application/json',
+      
     },
   });
   return response.data;
@@ -52,6 +48,7 @@ const runAssistant = async (id, message) => {
   const response = await axios.post(API_ENDPOINT + '/chat', postData, {
     headers: {
       'Content-Type': 'application/json',
+      
     },
   });
   return response.data;
@@ -59,19 +56,21 @@ const runAssistant = async (id, message) => {
 
 export const sendClearThread = createAsyncThunk(
   'entity/thread/clear',
-  async initialEntity => {
-    const result = await clearThread(initialEntity.id);
+  async initialData => {
+    const result = await clearThread(initialData.entity_id);
     return result.data;
   }
 )
 
-const clearThread = async (id) => {
+const clearThread = async (entity_id) => {
   const postData = {
-    'entity_id': id
+    'entity_id': entity_id
   }
+  console.log(postData);
   let response = await axios.post(API_ENDPOINT + '/thread/delete', postData, {
     headers: {
       'Content-Type': 'application/json',
+      
     },
   });
 
@@ -93,6 +92,7 @@ const clearAssistant = async (id) => {
   let response = await axios.post(API_ENDPOINT + '/assistant/delete', postData, {
     headers: {
       'Content-Type': 'application/json',
+      
     },
   });
 
@@ -161,8 +161,8 @@ const threads = createSlice({
       })
       .addCase(sendClearThread.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const id = action.meta.arg.id;
-        state.threads = state.threads.filter(item=>item.id!==id);
+        const thread = action.payload;
+        state.threads.push(thread);
       })
       .addCase(sendClearThread.rejected, (state, action) => {
         state.status = 'failed'

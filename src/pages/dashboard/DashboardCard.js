@@ -32,7 +32,7 @@ const DashboardCard = ({id}) =>{
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
                     <AnswersModal id={entity.id} name={ entity.name }/>
-                    { entity.answerCount } answers
+                    { entity.threadsCount } threads
                 </Stack>
             </Typography>
             <Typography variant="subtitle">

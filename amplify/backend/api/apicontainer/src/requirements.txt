@@ -1,0 +1,13 @@
+boto3
+nltk
+requests
+openai
+tiktoken
+pandas
+scipy
+#psycopg2
+psycopg2-binary
+pgvector
+numpy
+PyPDF2
+pdf2image

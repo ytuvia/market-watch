@@ -1,6 +1,6 @@
 import { createSlice, nanoid, createAsyncThunk  } from '@reduxjs/toolkit'
 import { API, graphqlOperation } from 'aws-amplify';
-import { listEntities, countDocuments, countAnswers } from 'graphql/queries';
+import { listEntities, countDocuments, countAnswers, countThreads } from 'graphql/queries';
 import { createEntity, createAnswer, removeEntity } from 'graphql/mutations';
 import { Storage } from 'aws-amplify';
 import axios from 'axios';
@@ -24,10 +24,10 @@ export const fetchEntities = createAsyncThunk('entities/fetchEntities', async ()
     }));
     entity.documentCount =  documentCountResult.data.countDocuments;
 
-    const answerCountResult = await API.graphql(graphqlOperation(countAnswers, {
+    const threadsCountResult = await API.graphql(graphqlOperation(countThreads, {
       'id': entity.id,
     }));
-    entity.answerCount = answerCountResult.data.countAnswers;
+    entity.threadsCount = threadsCountResult.data.countThreads;
   }
   return entities;
 })
@@ -138,9 +138,12 @@ export const addEntity = createAsyncThunk(
       }
     }));
     let entity = result.data.createEntity;
-    entity.documentCount = 0;
-    entity.answerCount = 0;
-    return entity;
+    return {
+      id: entity.id,
+      name: entity.name,
+      documentCount: 0,
+      threadsCount: 0
+    };
   }
 )
 

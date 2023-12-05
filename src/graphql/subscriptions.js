@@ -140,6 +140,7 @@ export const onCreateEntityThread = /* GraphQL */ `
     onCreateEntityThread(filter: $filter) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId
@@ -154,6 +155,7 @@ export const onUpdateEntityThread = /* GraphQL */ `
     onUpdateEntityThread(filter: $filter) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId
@@ -168,6 +170,7 @@ export const onDeleteEntityThread = /* GraphQL */ `
     onDeleteEntityThread(filter: $filter) {
       id
       status
+      title
       createdAt
       updatedAt
       entityThreadsId

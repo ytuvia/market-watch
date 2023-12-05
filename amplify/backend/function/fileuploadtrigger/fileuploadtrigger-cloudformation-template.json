@@ -30,9 +30,6 @@
     },
     "doTranslate": {
       "Type": "String"
-    },
-    "openaiApiKey": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -99,9 +96,6 @@
             },
             "DO_TRANSLATE": {
               "Ref": "doTranslate"
-            },
-            "OPENAI_API_KEY": {
-              "Ref": "openaiApiKey"
             }
           }
         },
@@ -304,6 +298,24 @@
             {
               "Action": [
                 "sns:*"
+              ],
+              "Resource": [
+                "*"
+              ],
+              "Effect": "Allow"
+            },
+            {
+              "Action": [
+                "ssm:*"
+              ],
+              "Resource": [
+                "*"
+              ],
+              "Effect": "Allow"
+            },
+            {
+              "Action": [
+                "secretsmanager:*"
               ],
               "Resource": [
                 "*"

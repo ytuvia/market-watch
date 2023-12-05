@@ -7,16 +7,23 @@ import {
   Typography,
   Grid,
   Paper,
-  Stack
+  Stack,
+  CircularProgress
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from 'react-redux'
 import { selectThreadById, sendRunAssistance, sendClearThread, fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
+import { selectEntityById } from 'store/reducers/entities/entitiesSlice';
+import Markdown from 'react-markdown';
+
 
 const Chat = ({id}) => {
     const paperRef = useRef(null);
     const dispatch = useDispatch();
+    const entity = useSelector(state=>{
+      return selectEntityById(state, id)
+    });
     const thread = useSelector(state=>{
       return selectThreadById(state, id)
     });
@@ -43,7 +50,7 @@ const Chat = ({id}) => {
     const handleClear = async () => {
       setRequestStatus('in-progress');
       await dispatch(sendClearThread({
-        id: id
+        entity_id: id
       }));
 
       await dispatch(fetchEntityThreadMessages({ 
@@ -69,50 +76,57 @@ const Chat = ({id}) => {
     }, []);
 
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <Box ref={paperRef} sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
-        {thread?.messages?.map((message) => (
-          <Message key={message.id} message={message} />
-        ))}
-      </Box>
-      <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-        <Grid container spacing={2}>
-          <Grid item xs={10}>
-            <TextField
-              fullWidth
-              placeholder="Type a message"
-              value={input}
-              onChange={handleInputChange}
-              disabled={requestStatus!=='idle'}
-              onKeyDown={handleKeyPress}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Stack direction="row">
-              <Button
+    <Stack>
+      <Typography variant="h3">{entity.name} chat</Typography>
+      <Box sx={{ height: "90vh", display: "flex", flexDirection: "column" }}>
+        <Box ref={paperRef} sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
+          {thread?.messages?.map((message) => (
+            <Message key={message.id} message={message} />
+          ))}
+        </Box>
+        <Box sx={{ p: 2, backgroundColor: "background.default" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <TextField
                 fullWidth
-                size="large"
-                color="primary"
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleSend}
+                placeholder="Type a message"
+                value={input}
+                onChange={handleInputChange}
                 disabled={requestStatus!=='idle'}
-              >
-                Send
-              </Button>
-              <IconButton
-                color="error"
-                variant="contained"
-                onClick={handleClear}
-                disabled={requestStatus!=='idle'}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
+                onKeyDown={handleKeyPress}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Stack direction="row">
+                <Button
+                  fullWidth
+                  size="large"
+                  color="primary"
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={handleSend}
+                  disabled={requestStatus!=='idle'}
+                >
+                  Send
+                </Button>
+                <IconButton
+                  color="error"
+                  variant="contained"
+                  onClick={handleClear}
+                  disabled={requestStatus!=='idle'}
+                >
+                  {requestStatus!=='idle' ? (
+                    // CircularProgress is only rendered when 'loading' is true
+                    <CircularProgress />
+                  ) : ' '}
+                </IconButton>
+              </Stack>
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </Box>
-    </Box>
+    </Stack>
+    
   );
 };
 
@@ -134,9 +148,12 @@ const Message = ({ message }) => {
           backgroundColor: isBot ? "primary.light" : "secondary.light",
         }}
       >
-        {message?.content?.map((item, index) => (
-          <Typography key={index} variant="body1">{item.text.value}</Typography>
-        ))}
+        <Stack>
+          <Typography variant="caption">{isBot ? 'Assistant' : 'You'}</Typography>
+          {message?.content?.map((item, index) => (
+            <Markdown key={index}>{item.text.value}</Markdown>
+          ))}
+        </Stack>
       </Paper>
     </Box>
   );

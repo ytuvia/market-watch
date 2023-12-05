@@ -1,17 +1,17 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "marketwatch": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
-    },
-    "restapicontainer": {
+    "apicontainer": {
       "ApiName": "string",
       "ClusterName": "string",
       "ContainerNames": "string",
       "PipelineName": "string",
       "RootUrl": "string",
       "ServiceName": "string"
+    },
+    "marketwatch": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string",
+      "GraphQLAPIKeyOutput": "string"
     }
   },
   "auth": {
@@ -42,6 +42,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "countDocuments": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "countThreads": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
