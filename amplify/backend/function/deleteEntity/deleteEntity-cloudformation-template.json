@@ -31,9 +31,6 @@
     "storagecontentBucketName": {
       "Type": "String",
       "Default": "storagecontentBucketName"
-    },
-    "openaiApiKey": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -100,9 +97,6 @@
             },
             "STORAGE_CONTENT_BUCKETNAME": {
               "Ref": "storagecontentBucketName"
-            },
-            "OPENAI_API_KEY": {
-              "Ref": "openaiApiKey"
             }
           }
         },

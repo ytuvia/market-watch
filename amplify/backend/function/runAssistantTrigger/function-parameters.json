@@ -1,5 +1,4 @@
 {
-  "lambdaLayers": [],
   "permissions": {
     "api": {
       "marketwatch": [
@@ -17,5 +16,5 @@
       ]
     }
   },
-  "environmentVariableList": []
+  "lambdaLayers": []
 }

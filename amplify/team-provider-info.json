@@ -1,4 +1,89 @@
 {
+  "demo": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketwatch-demo-142426-authRole",
+      "UnauthRoleArn": "arn:aws:iam::896812843445:role/amplify-marketwatch-demo-142426-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::896812843445:role/amplify-marketwatch-demo-142426-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+      "UnauthRoleName": "amplify-marketwatch-demo-142426-unauthRole",
+      "StackName": "amplify-marketwatch-demo-142426",
+      "StackId": "arn:aws:cloudformation:us-west-2:896812843445:stack/amplify-marketwatch-demo-142426/aa5e8c60-91e7-11ee-a521-0220ab430b43",
+      "AmplifyAppId": "d2yjv73wkk5d2w",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-demo-142426-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "auth": {
+        "marketwatch53bd761f": {}
+      },
+      "function": {
+        "countAnswers": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/countAnswers-366742716433782b3968-build.zip"
+        },
+        "countDocuments": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/countDocuments-3548785041446d305073-build.zip"
+        },
+        "countThreads": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/countThreads-596969332b412f44667a-build.zip"
+        },
+        "countTokens": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
+        },
+        "deleteEntity": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/deleteEntity-57524e57373351794d61-build.zip"
+        },
+        "deleteEntityDocuments": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/deleteEntityDocuments-7a466734767866506f4b-build.zip",
+          "secretsPathAmplifyAppId": "d2yjv73wkk5d2w",
+          "doTranslate": "0"
+        },
+        "documentAssistant": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/documentAssistant-796b44686147396b5454-build.zip"
+        },
+        "fileuploadtrigger": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/fileuploadtrigger-39502f326d6936395057-build.zip",
+          "doTranslate": "0"
+        },
+        "gmailEmbedHandler": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/gmailEmbedHandler-58625143615264694557-build.zip"
+        },
+        "handleDocument": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/handleDocument-594f7a5571514f46324a-build.zip",
+          "doTranslate": "0"
+        },
+        "marketwatch": {},
+        "content": {},
+        "runAssistantTrigger": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2yjv73wkk5d2w",
+          "type": "manual"
+        }
+      },
+      "api": {
+        "apicontainer": {},
+        "marketwatch": {}
+      },
+      "custom": {
+        "deleteEntityDocumentsSNSTopic": {},
+        "documentHandlerSNS": {}
+      },
+      "storage": {
+        "content": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-marketwatch-dev-214018-authRole",
@@ -116,91 +201,6 @@
       "api": {
         "marketwatch": {},
         "restapicontainer": {}
-      },
-      "custom": {
-        "deleteEntityDocumentsSNSTopic": {},
-        "documentHandlerSNS": {}
-      },
-      "storage": {
-        "content": {}
-      }
-    }
-  },
-  "demo": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-marketwatch-demo-142426-authRole",
-      "UnauthRoleArn": "arn:aws:iam::896812843445:role/amplify-marketwatch-demo-142426-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::896812843445:role/amplify-marketwatch-demo-142426-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-      "UnauthRoleName": "amplify-marketwatch-demo-142426-unauthRole",
-      "StackName": "amplify-marketwatch-demo-142426",
-      "StackId": "arn:aws:cloudformation:us-west-2:896812843445:stack/amplify-marketwatch-demo-142426/aa5e8c60-91e7-11ee-a521-0220ab430b43",
-      "AmplifyAppId": "d2yjv73wkk5d2w",
-      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-marketwatch-demo-142426-deployment/amplify-cfn-templates/networkingStackTemplate.json"
-    },
-    "categories": {
-      "auth": {
-        "marketwatch53bd761f": {}
-      },
-      "function": {
-        "countAnswers": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/countAnswers-366742716433782b3968-build.zip"
-        },
-        "countDocuments": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/countDocuments-3548785041446d305073-build.zip"
-        },
-        "countThreads": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/countThreads-596969332b412f44667a-build.zip"
-        },
-        "countTokens": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/countTokens-492f59394e374e373457-build.zip"
-        },
-        "deleteEntity": {
-          "openaiApiKey": "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",
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/deleteEntity-57524e57373351794d61-build.zip"
-        },
-        "deleteEntityDocuments": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/deleteEntityDocuments-7a466734767866506f4b-build.zip",
-          "doTranslate": "0",
-          "secretsPathAmplifyAppId": "d2yjv73wkk5d2w"
-        },
-        "documentAssistant": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/documentAssistant-796b44686147396b5454-build.zip"
-        },
-        "fileuploadtrigger": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/fileuploadtrigger-39502f326d6936395057-build.zip",
-          "doTranslate": "0"
-        },
-        "gmailEmbedHandler": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/gmailEmbedHandler-58625143615264694557-build.zip"
-        },
-        "handleDocument": {
-          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
-          "s3Key": "amplify-builds/handleDocument-594f7a5571514f46324a-build.zip",
-          "doTranslate": "0"
-        },
-        "marketwatch": {},
-        "content": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d2yjv73wkk5d2w",
-          "type": "manual"
-        }
-      },
-      "api": {
-        "apicontainer": {},
-        "marketwatch": {}
       },
       "custom": {
         "deleteEntityDocumentsSNSTopic": {},
