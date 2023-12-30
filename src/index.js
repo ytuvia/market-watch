@@ -6,29 +6,27 @@ import { BrowserRouter } from 'react-router-dom';
 import 'simplebar/src/simplebar.css';
 
 // third-party
-import { Provider as ReduxProvider } from 'react-redux';
+
 
 // apex-chart
 import 'assets/third-party/apex-chart.css';
 
 // project import
 import App from './App';
-import { store } from 'store';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import amplifyconfig from 'amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
+
 
 // ==============================|| MAIN - REACT DOM RENDER  ||============================== //
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
-    <ReduxProvider store={store}>
-      <BrowserRouter basename="/">
-        <App />
-      </BrowserRouter>
-    </ReduxProvider>
+    <BrowserRouter basename="/">
+      <App />
+    </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

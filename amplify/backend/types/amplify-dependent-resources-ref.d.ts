@@ -26,11 +26,11 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "custom": {
-    "deleteEntityDocumentsSNSTopic": {
-      "DeleteEntityDocumentsSnsTopicArn": "string"
+    "removeEntitySNS": {
+      "RemoveEntitySnsTopicArn": "string"
     },
-    "documentHandlerSNS": {
-      "DocumentHandlerSnsTopicArn": "string"
+    "runAssistantSNS": {
+      "RunAssistantSnsTopicArn": "string"
     }
   },
   "function": {
@@ -98,6 +98,34 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "handleDocument": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "removeEntitySink": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "removeEntityTrigger": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "runAssistantSink": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "runAssistantTrigger": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

@@ -12,13 +12,10 @@ import {
     ListItemText } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 import DownloadIcon from '@mui/icons-material/Download';
-import TokenIcon from '@mui/icons-material/Token';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { API, graphqlOperation } from 'aws-amplify';
-import { countTokens } from 'graphql/queries'
 import { useState } from 'react';
-import { Storage } from 'aws-amplify';
+import { getUrl } from 'aws-amplify/storage';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDocumentsPage, selectEntityDocuments, deleteDocument } from 'store/reducers/entities/entitiesSlice';
@@ -58,45 +55,30 @@ const DownloadButton =  ({filename}) => {
     setIsDisabled(true);
     console.log(filename);
 
-    const result = await Storage.get(filename, { download: true });
-    console.log(result);
-    downloadBlob(result.Body, filename);
-    setIsDisabled(false);
+    const result = await getUrl({key:filename, options: { expiresIn: 60 }});
+    fetch(result)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      setIsDisabled(false);
+    })
+    .catch(error => console.error('Error downloading file:', error))
+    //console.log(result);
+    //downloadBlob(result.Body, filename);
+    
   };
 
   return (
     <IconButton edge="end" aria-label="comments" onClick={handleDownload} disabled={isDisabled}>
       <DownloadIcon />
     </IconButton>
-  )
-}
-
-const TokensButton =  ({id}) => {
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const [tokenCount, setTokenCount] = useState(0);
-
-  const handleCount = async () => {
-    setIsDisabled(true);
-    const result = await API.graphql(graphqlOperation(countTokens, {
-      'id': id
-    }));
-    setTokenCount(result.data.countTokens)
-    setIsDisabled(false);
-    setIsHidden(true);
-  };
-
-  return (
-    <Stack direction="row">
-      <div hidden={isHidden==true}>
-        <IconButton edge="end" aria-label="comments" onClick={handleCount} disabled={isDisabled}>
-          <TokenIcon />
-        </IconButton>
-      </div>
-      <div hidden={isHidden==false}>
-        <Typography id="modal-modal-title" variant="caption" component="p">{tokenCount}</Typography>
-      </div>
-    </Stack>
   )
 }
 

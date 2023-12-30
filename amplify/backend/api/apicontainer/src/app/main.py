@@ -6,7 +6,7 @@ from question_agent import ask_entity
 from lib.embedding import insert_row
 from pdf_utils import read_pdf_file
 from csv_utils import read_csv_file
-from entity_assistant import run_assistance, get_entity_thread, get_entity_messages, delete_thread, archive_thread, delete_assistant, delete_entity_embedding, delete_file
+from entity_assistant import run_assistance, get_thread_messages, get_entity_thread, get_entity_messages, delete_thread, archive_thread, delete_assistant, delete_entity_embedding, delete_file, run_assistance_thread
 
 class S3KeyInput(BaseModel):
     bucket: str
@@ -20,6 +20,11 @@ class ChatInput(BaseModel):
     entity_id: str
     message: str
 
+class RunInput(BaseModel):
+    entity_id: str
+    thread_id: str
+    message: str
+
 class TranslateInput(BaseModel):
     document_id: str
     source_lang: str
@@ -30,6 +35,9 @@ class DocumentInput(BaseModel):
 
 class EntityInput(BaseModel):
     entity_id: str
+
+class ThreadInput(BaseModel):
+    thread_id: str
 
 class EntityThreadInput(BaseModel):
     entity_id: str
@@ -77,9 +85,35 @@ async def entity_thread(input: EntityInput):
     result = get_entity_thread(input.entity_id)
     return result
 
+@app.post("/thread/run")
+async def entity_thread_run(input: RunInput):
+    entity_id = input.entity_id
+    thread_id = input.thread_id
+    message = input.message
+    result = run_assistance_thread(entity_id, thread_id, message)
+    return result
+
 @app.post("/thread/messages")
+async def thread_messages(input: ThreadInput):
+    (thread_id, thread_status, entity_id, messages) = get_thread_messages(input.thread_id)
+    result = {
+        'thread_id': thread_id,
+        'entity_id': entity_id,
+        'thread_status': thread_status,
+        'messages': messages
+    }
+    return result
+
+@app.post("/entity/messages")
 async def entity_thread_messages(input: EntityInput):
-    result = get_entity_messages(input.entity_id)
+    (thread_id, thread_status, messages) = get_entity_messages(input.entity_id)
+    print(thread_id, thread_status, messages)
+    result = {
+        'thread_id': thread_id,
+        'thread_status': thread_status,
+        'messages': messages
+    }
+    print(result)
     return result
 
 @app.post("/thread/delete")

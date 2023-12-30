@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import logo from 'assets/images/logo.jpg';
+import logo from 'assets/images/logo.png';
 import {Typograph, Box} from '@mui/material';
 
 /**
@@ -29,7 +29,7 @@ const Logo = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         height: "57px",
-        width: "200px"
+        width: "180px"
         }}
       >
     </Box>

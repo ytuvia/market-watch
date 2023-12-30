@@ -6,6 +6,15 @@ export const removeEntity = /* GraphQL */ `
     removeEntity(args: $args)
   }
 `;
+export const runAssistant = /* GraphQL */ `
+  mutation RunAssistant($entity_id: ID!, $thread_id: ID!, $message: String!) {
+    runAssistant(
+      entity_id: $entity_id
+      thread_id: $thread_id
+      message: $message
+    )
+  }
+`;
 export const createEntity = /* GraphQL */ `
   mutation CreateEntity(
     $input: CreateEntityInput!

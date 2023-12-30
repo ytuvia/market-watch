@@ -1,0 +1,69 @@
+{
+  "Records": [
+      {
+          "messageId": "e6c8363f-b597-47de-9b46-27fffb0d6fb4",
+          "receiptHandle": "AQEBgKPgCzx8BrLahmut7bPQAUAryDckfLKGEya0YnGw/Q/5G/UQMQZgb4UEwn1o7OmQVRnN1oT6O7/pJ1fIqJXidu6MkXJT2b4rRQwHPLn6a3li2GJUmvVkYf2VFIpg5NNpU/nQdL0fWtl7FQNOYN/s84W70E25hjhRMwx2HNrf0Cg9jHPQYEEvlLwFQVWm5cglL6TrC/IaMIWBoj/0xjhTG8TU4QcdsJ3V7IKvh+xUgcomIPE+hzOIRr7T+EoxVwwOTguC3yObrS+vppEBzBYAOEaP6dS7sGC4oZyttocz7psd3l7K6jIDEOUxtp9+JQg6VG4Oq8WibqSI6RwGhRGzBWbAUcRBqOA62WwGH2WCz8wpz2Eeml14Vobj2ZhHDnEQAMnbiG61cVAfQ5cwXS9sJZmlDuRT67x03lZ2sOLSs3uqWPZYeZ6cSSQipiNHJcCP9KNBqHaQAcx/UuyFcX0YuA==",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"89e4a1ae-8f43-5705-8385-fc7ee03c4682\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant\",\n  \"Message\" : \"{\\\"document\\\":{\\\"id\\\":\\\"file-FHDdC1scECAGd7jgbvShyjO7\\\",\\\"filename\\\":\\\"public/7d89cf32-4507-4cc5-b7e3-c836cbd316f7/d2a4111e-41fc-4dcb-bcbd-1e3cdf896285.json\\\",\\\"entityId\\\":\\\"7d89cf32-4507-4cc5-b7e3-c836cbd316f7\\\"}}\",\n  \"Timestamp\" : \"2023-11-16T19:27:59.736Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"r4bhA3N94WK07N/DrGAyvvatCu3BAR3rdK6poIp3CsqdRbvFKp7za/TWEvy6JxxxohXgfJfQQe2bLpOUVGQkLJc7ag9I+EWkwvBCghbdcGjVFTG8Ah+0t8fxefdn+0lETkqBNv4TxUnXh5QXz2PAHCkNXKphZxGfsVnIEAWi7g79TBeo7NXwv17HW0jBtxIWBsC++qTc/y5RmOxXWs/zSw3aweZJoNYwaRkhl4YFRJoW8X6ihr4WheIojDxJpP5DoquCcAi/Pn9qf9DGNXO59qybfHC06T1gqghCYdXv2BjV9tZZTRZsE6WOuUrl3zRQjAfV8S+NKEnFmY6NxMhqfg==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant:852af9e1-0c3e-45ee-aa02-4ec8d49646a3\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "4",
+              "SentTimestamp": "1700162879769",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1700210128012"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "3422d4e2ebfad0bdb2866763325be9d8",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:271936189865:delete-entity-documents-sqs-queue-marketwatch-assistant",
+          "awsRegion": "us-west-2"
+      },
+      {
+          "messageId": "c654a607-2e4c-4d1c-ba08-59dc7d81b6ac",
+          "receiptHandle": "AQEBSIV9SRhbYXAG/4SIKoQYTErJm2H0QdD9NH4ymqMu94CeZNTVrop5y/D7cruSPKzqa/rkDqP8Xq1uSyIVbt1fEjY3kt5SDlVjB+w3zrMBNcTBySqfLp7gB9osDEiXfFYO9MMQ9x9kp6xBkOFucHC+qqw72rD/cz52WtHyjUo1gI1OiuPKDP42DVa2niVG6be4mzXmuwdOnVdJ9cvddtj//2nx+bKG0DfJhMnwnmTut8vzBx7gw8yzZ3JwKUywZcBY0ZYmVx8SF4Ck3nxtiJR1vIEo20NeODrnLesIgU4KqwKYCb5/00MA21np86bO6q9CWMOIYHQuS1Tf9798OI0oR5dSfs0e+Nfq4FeVZsHkhvD2xWtQ0x2h7hjTapGiACwivZQOyjASyzATawxCs8bTCrNR8n7tNlcP8sGqyzMALT7XJ29O3L25J1xzZDX4jFQHIgOqfwpS8Fu6ldpC4s+uXQ==",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"646df23c-aa90-592d-8f25-afecd88f9140\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant\",\n  \"Message\" : \"{\\\"document\\\":{\\\"id\\\":\\\"file-FHDdC1scECAGd7jgbvShyjO7\\\",\\\"filename\\\":\\\"public/7d89cf32-4507-4cc5-b7e3-c836cbd316f7/d2a4111e-41fc-4dcb-bcbd-1e3cdf896285.json\\\",\\\"entityId\\\":\\\"7d89cf32-4507-4cc5-b7e3-c836cbd316f7\\\"}}\",\n  \"Timestamp\" : \"2023-11-16T19:39:11.296Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"fFZdvF1AEgp5H2N/cnvCx3canMykUkkshccYEcihrUat6pum2D9r53bMpW5q94R92PI2ghLvYL7VNALwI1iPpKR8NBz1nvrSKGdXaJgyUcFUGjFmgyGQMo8T1qZAbP2dRvaC1NVpIvJX39IZwJ8cFyxVMny4ye+/JVPU4COcvpTLEbZIRa/NVrVq/t1Gq776sR9IvZgj4DYRhH/p1T/vMEAHBBmS4ngruFoddr3jMUdMeiyxw71gzNiEFjDw5SrwV0I7XpFeeIsvCWhHJw7sWK8rg0ZKZXUGbY9raeKk4YVcox5V/q0w71bwkwHMvk0ymPB/0vAFRTRpDrrzDeDd4w==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant:852af9e1-0c3e-45ee-aa02-4ec8d49646a3\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "4",
+              "SentTimestamp": "1700163551394",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1700210128012"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "9c61bfbaf8dad8c2933bdfa8f347e26d",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:271936189865:delete-entity-documents-sqs-queue-marketwatch-assistant",
+          "awsRegion": "us-west-2"
+      },
+      {
+          "messageId": "3fa223dc-f2de-4d67-bd80-b24a3af9e7fd",
+          "receiptHandle": "AQEBX+xkEw1owacP83ON3m0HzeWQZxOUuGnQtTvhijGpIjFLVmN1K3ti9lt19u5GvVG4GG7agpzbLSRF95iUPIB1I77BVi/pqba/3gMlU6nHBewE5n0qycPNpFOzafStB6f2Vd9GQDpUBEbNvrfMapMK9qqO62q14k32oJDul25j/ZvF7RBzcRns0zChEJ3lDmphhQXXJq1hPKls+6fWMCexcxYlLaPjGP7xwB7yMSE/GTJahHjESBW4Xm+qc2JJUo/hjN/DAI2Nc8mW5dxfRZ5/lfQK/6qF7wjNXO6IN9wzyrBSl1niP/mGlCYPSyU1cQxE5HD0EaN7QacdTkCVPKeI4rINj2zQtjVs8/xYmPkTdKNXhJr4qBuEqcW+P6n2F10x1FkyuTxISeUub1/6NY3ZpZNtwryFFuk+Ef8BnOSN6JsHW1MebR6RDVtK+K0SQRh/8viDayP7/qrZl6rR2LspeA==",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"fc270c01-571e-5a97-9d6a-51d13967f15d\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant\",\n  \"Message\" : \"{\\\"document\\\":{\\\"id\\\":\\\"file-FHDdC1scECAGd7jgbvShyjO7\\\",\\\"filename\\\":\\\"public/7d89cf32-4507-4cc5-b7e3-c836cbd316f7/d2a4111e-41fc-4dcb-bcbd-1e3cdf896285.json\\\",\\\"entityId\\\":\\\"7d89cf32-4507-4cc5-b7e3-c836cbd316f7\\\"}}\",\n  \"Timestamp\" : \"2023-11-16T19:23:37.953Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"bm2zji0GPO09sAZCLyAkwoMJ/wIyUJdfuJ2jSgIeuvaasXr4PaE68thyHdHZLLdCQHSEgTParA92fiK+qbYFTG7YKGX+I3xWreIdi1yllH3Sbk+ataVNg2YTOqzIiwelJMBAVpsK0iQudEuCZxmtJr+uQemWvjawz3WlFIHsL1tI1pScWwGKAXCP/N15qQ5R/qpAjiSrK72VtgwiDtdpE6im+43BBBgt+2d0eZnp/Ppkhug+e71P5O7phBX+87RmdEsFPSTcxLblzbY9qdK5b9oB2c9hbJcwyK8bPWvrVkKJpaER68lxlAP8zjTiKcwJ3Vda0zPapNeCo6rJmj3sIw==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant:852af9e1-0c3e-45ee-aa02-4ec8d49646a3\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "4",
+              "SentTimestamp": "1700162617983",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1700210128012"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "83a4ea8eef3830f38c964230f83e32aa",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:271936189865:delete-entity-documents-sqs-queue-marketwatch-assistant",
+          "awsRegion": "us-west-2"
+      },
+      {
+          "messageId": "8f5da8f5-d4f9-439b-a506-72b3f6897584",
+          "receiptHandle": "AQEBdWt7zUFYRM7g9hCDD220L6hMdkJvABOmK9Ddn+9cQp0E9xBjoI3p0gCF1xa3VIW7ZGNqyu8C06PSTZ1jM/Z0DrRaBZbUkQG3AJ5eg1Bdg/xeIbNZv26fAjecq/reKvh1ae8I7IEX87Zk4sl/UGiaBV4hPB0eJDe8caNI70YAHDJcwncPKZLqE4g87NAGA3JwwybpPHPLSZzjD/L7TOAAgcv08kYxJhXPGHbDeM6gWQNFaECfDDlp/IeQi+PxhUMVrqzMmAv4nINpSHxXckBFjG6hW/TU47KezOsrABoaH8JM1m/uMJBGr+dHRTxnQHO7bd5PEX9Ttm7D3AMt1Y5jrdm+e5uaf2xcTukL9aU1H5cfyTCCKOKzfKp1IWDgXEzzOqSW4NUhQ/uwy4eqj3r6Xub/XEiTuuYZoVm9z8zyWsv6EaNquE2fb70asNlzKzr7dSz9vhIMZNc54NvazHP5ag==",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"0161ed21-4210-5081-8805-b0f121d90688\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant\",\n  \"Message\" : \"{\\\"id\\\":\\\"file-UVMhaEkqo3RkAQCKEGlPNIgb\\\"}\",\n  \"Timestamp\" : \"2023-11-16T18:38:01.454Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"aWBOkUz0rz029V7OaytzkQhXyUye6q4DMKc/UEtWLFBpEsyBTKOOo1PkTxbE+/vIx41bjLEvboCJBEfJ5bZN/CCaR6V2BM5dC0YGl7wK0Je4IsIlY3YyUD92JK6HzkrKe0feloK+ujGEFj+sHeOszMq74eb3z2bLnIjSC5BuY78nQ5+hpApBEp+A5kws7N5+6GOyZckZsq7ijZZ/Q0Q5C8Ua6G5HQxnIC7NvBllUJI33621mZapIy3ZPGWy9xo7QmgRBbYj+2BH4Vt6hrI1H8E1ooUMa8lDKDmmQeeglVIbKXGLFqv9hb6aGNqoC1k9xlmr/mSIAsBiRmVczxdcqbg==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant:852af9e1-0c3e-45ee-aa02-4ec8d49646a3\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "4",
+              "AWSTraceHeader": "Root=1-65566187-0a5db0a87dbe088a4f4c12fe;Parent=0809bf6b5bb50dc1;Sampled=0;Lineage=697db7bf:0",
+              "SentTimestamp": "1700159881504",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1700210128009"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "10a49563a25527bfe286ad58dd67b76e",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:271936189865:delete-entity-documents-sqs-queue-marketwatch-assistant",
+          "awsRegion": "us-west-2"
+      }
+  ]
+}

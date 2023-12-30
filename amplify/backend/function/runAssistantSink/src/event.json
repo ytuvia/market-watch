@@ -1,0 +1,21 @@
+{
+  "Records": [
+      {
+          "messageId": "eacb744a-6b54-49d4-8df2-4104567eb79a",
+          "receiptHandle": "AQEBdvkpDc2/k65dSMTHJq6dAermX00VAr/bSBbcojHoavf+HGzEz3AiTi9N11sY1uCqNtCdVzXcTqHMNxU8GCB1ww+h/QG8Y1pQUz9/3ruhqtT/rgZ40gr43FIsdYvdX9HsZdO9UjPL/XyyP5GKXtcnUaTqZQ9fzBTbL4syTT3qtNuZzUzNQpJkpBU60aAg1sVVEwm9i8oB9EMPeHzvkm4Sm4bkjC4dzamWAFjfp6odyP0FhHMaVpwHGZfvjPwmk5RA/wqC/Eopw8kP06aeYWJrrEWt8a63tPrH61XP9vv8zGOfYWPDNHm9/a+7gTe5GLMHBdkrYsSYz1EbQru2DS+no12QPxDsl+SLNvGbx6TkMc1z753pmQ0fOyJCqaH6NLlnMuzjh7/Wcb7mq2JDhM5b2w7oyh56L8Ig0abtn6+bmCAQoOMw0B9Gg2HfNYvrrQ8E",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"85294434-5c74-5f71-a641-1a3cd87eed1a\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:896812843445:run-assistant-sns-topic-marketwatch-demo\",\n  \"Message\" : \"{\\\"entity_id\\\":\\\"7e4ea69b-7f98-434b-97e4-0195d85f6d50\\\",\\\"thread_id\\\":\\\"thread_O7FIOiVnMzGQ5BwQyqR9xlZq\\\",\\\"message\\\":\\\"hi\\\"}\",\n  \"Timestamp\" : \"2023-12-29T08:22:34.269Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"JOnC9z2NZPp60zOUNnyGs2KVgT/IkNNUvbBNLx0Wx5CS6enXe4IiTKG4alkG0lHTP5zMJArRF4f3p96JW81VMgWJIAzHHKE6m4yWAZecKFndi3ZBPm8uYI6JxY7KZQBxoYIUy3fKYDrQpk0Pakw1IoGGExpxbjyO5jTVeIeEiWAcCvmc54KtDQysyW7yfe43U51ZfLG0HerC9j6kgaaKNCDhudR8cwmHxausf4D3/QUNTBTUi+ALqSwAYCzGJ940gCYLjjqLuhumxoiIAXnapV+R+kU1Turbh/7+mBDJ22ytw4aBeBIzYFQsx6/3x8jZ8lQuE7Zyb7J/vSqKu1DSsQ==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:896812843445:run-assistant-sns-topic-marketwatch-demo:56261df3-bad7-4f7e-9363-4653cbae6dd5\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "1",
+              "AWSTraceHeader": "Root=1-658e81c8-1ed29ad534d7b56735bbdd74;Parent=09380f0727a54581;Sampled=0;Lineage=45fc7a90:0",
+              "SentTimestamp": "1703838154300",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1703838154302"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "9f80e7dff669618396a6db51cce20367",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:896812843445:run-assistant-sqs-queue-marketwatch-demo",
+          "awsRegion": "us-west-2"
+      }
+  ]
+}

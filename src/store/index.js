@@ -1,5 +1,6 @@
 // third-party
 import { configureStore } from '@reduxjs/toolkit';
+import ThreadListener from './reducers/threads/threadListener';
 
 // project import
 import reducers from './reducers';
@@ -9,6 +10,8 @@ import reducers from './reducers';
 const store = configureStore({
   reducer: reducers
 });
+
+new ThreadListener(store);
 
 const { dispatch } = store;
 

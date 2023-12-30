@@ -36,6 +36,29 @@ client = OpenAI(
     api_key=api_key 
 )
 
+def run_assistance_thread(entity_id, thread_id, message):
+    entity = get_entity(entity_id)
+
+    assistant = client.beta.assistants.retrieve(
+        assistant_id=entity['assistant']['id']
+    )
+    thread = client.beta.threads.retrieve(
+        thread_id=thread_id
+    )
+    message = client.beta.threads.messages.create(
+        thread_id=thread.id,
+        role="user",
+        content=message,
+    )
+    run = client.beta.threads.runs.create(
+        thread_id=thread.id,
+        assistant_id=assistant.id,
+    )
+
+    run = wait_on_run(run, thread)
+
+    return run
+
 def run_assistance(entity_id, message):
     (assistant, thread) = build_infrastructure(entity_id)
     message = client.beta.threads.messages.create(
@@ -154,6 +177,29 @@ def get_entity(id):
     data = response['data']['getEntity']
     return data
 
+def get_thread(id):
+    variables = {
+        'id': id,
+    }
+    query = """
+        query GetEntityThread($id: ID!) {
+            getEntityThread(id: $id) {
+                id,
+                status,
+                entityThreadsId,
+                updatedAt
+            }
+        }
+    """
+    response = query_api(query, variables)
+    data = response['data']['getEntityThread']
+    return data
+
+def get_thread_messages(thread_id):
+    thread = get_thread(thread_id)
+    messages = client.beta.threads.messages.list(thread_id=thread_id)
+    return (thread_id, thread['status'], thread['entityThreadsId'], messages.data)
+
 def create_entity_assistant(entity, assistant):
     variables = {
         'input':{
@@ -211,16 +257,17 @@ def get_entity_thread(entity_id):
         thread = client.beta.threads.retrieve(
             thread_id=saved_thread.get('id')
         )
-        return thread
+        status = saved_thread['status']
+        return (thread, status)
     else:
        (assistant, thread) = build_infrastructure(entity_id)
-       return thread
+       return (thread, 'completed')
 
 def get_entity_messages(entity_id):
-    thread = get_entity_thread(entity_id)
+    (thread, status) = get_entity_thread(entity_id)
     messages = client.beta.threads.messages.list(thread_id=thread.id)
     show_json(messages)
-    return messages
+    return (thread.id, status, messages.data)
 
 def update_document_file(id, openai_id):
     variables = {
@@ -296,6 +343,11 @@ def update_status(thread, status):
             updateEntityThread
             (input: $input) {
                 id
+                status
+                title
+                createdAt
+                updatedAt
+                entityThreadsId
             }
         }
     """
@@ -315,7 +367,7 @@ def get_response(thread):
     return client.beta.threads.messages.list(thread_id=thread.id, order="asc")
 
 def delete_thread(entity_id):
-    thread = get_entity_thread(entity_id)
+    (thread, status) = get_entity_thread(entity_id)
     variables = {
         'input':{
             'id': thread.id

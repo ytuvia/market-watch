@@ -175,11 +175,37 @@
     }
   },
   "custom": {
-    "deleteEntityDocumentsSNSTopic": {
+    "removeEntitySNS": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "Region",
+            "LambdaExecutionRole",
+            "LambdaExecutionRoleArn"
+          ],
+          "category": "function",
+          "resourceName": "removeEntitySink"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "customCDK"
     },
-    "documentHandlerSNS": {
+    "runAssistantSNS": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "Region",
+            "LambdaExecutionRole",
+            "LambdaExecutionRoleArn"
+          ],
+          "category": "function",
+          "resourceName": "runAssistantSink"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "customCDK"
     }
@@ -363,6 +389,39 @@
           "resourceName": "content"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "removeEntitySink": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "marketwatch"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "content"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "removeEntityTrigger": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "runAssistantSink": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -587,6 +646,78 @@
         {
           "category": "function",
           "resourceName": "handleDocument"
+        }
+      ]
+    },
+    "AMPLIFY_function_removeEntitySink_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "removeEntitySink"
+        }
+      ]
+    },
+    "AMPLIFY_function_removeEntitySink_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "removeEntitySink"
+        }
+      ]
+    },
+    "AMPLIFY_function_removeEntityTrigger_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "removeEntityTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_removeEntityTrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "removeEntityTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_runAssistantSink_apiEndpoint": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runAssistantSink"
+        }
+      ]
+    },
+    "AMPLIFY_function_runAssistantSink_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runAssistantSink"
+        }
+      ]
+    },
+    "AMPLIFY_function_runAssistantSink_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runAssistantSink"
+        }
+      ]
+    },
+    "AMPLIFY_function_runAssistantTrigger_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runAssistantTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_runAssistantTrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runAssistantTrigger"
         }
       ]
     },

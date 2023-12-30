@@ -63,7 +63,23 @@
         },
         "marketwatch": {},
         "content": {},
-        "runAssistantTrigger": {}
+        "runAssistantTrigger": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/runAssistantTrigger-517875336358335a504c-build.zip"
+        },
+        "runAssistantSink": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/runAssistantSink-7a6e36372b645a474632-build.zip",
+          "apiEndpoint": "https://3m5r3babr0.execute-api.us-west-2.amazonaws.com"
+        },
+        "removeEntitySink": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/removeEntitySink-674647564d6346346d49-build.zip"
+        },
+        "removeEntityTrigger": {
+          "deploymentBucketName": "amplify-marketwatch-demo-142426-deployment",
+          "s3Key": "amplify-builds/removeEntityTrigger-66785463796e45746b70-build.zip"
+        }
       },
       "hosting": {
         "amplifyhosting": {
@@ -75,12 +91,12 @@
         "apicontainer": {},
         "marketwatch": {}
       },
-      "custom": {
-        "deleteEntityDocumentsSNSTopic": {},
-        "documentHandlerSNS": {}
-      },
       "storage": {
         "content": {}
+      },
+      "custom": {
+        "runAssistantSNS": {},
+        "removeEntitySNS": {}
       }
     }
   },

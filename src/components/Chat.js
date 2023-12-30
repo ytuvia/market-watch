@@ -8,12 +8,13 @@ import {
   Grid,
   Paper,
   Stack,
-  CircularProgress
+  CircularProgress,
+  LinearProgress
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from 'react-redux'
-import { selectThreadById, sendRunAssistance, sendClearThread, fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
+import { selectLatestEntityThread, sendRunAssistance, sendClearThread, fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
 import { selectEntityById } from 'store/reducers/entities/entitiesSlice';
 import Markdown from 'react-markdown';
 
@@ -25,7 +26,7 @@ const Chat = ({id}) => {
       return selectEntityById(state, id)
     });
     const thread = useSelector(state=>{
-      return selectThreadById(state, id)
+      return selectLatestEntityThread(state, id)
     });
     const [input, setInput] = React.useState("");
     const [requestStatus, setRequestStatus] = useState('idle');
@@ -34,7 +35,8 @@ const Chat = ({id}) => {
         if (input.trim() !== "") {
           setRequestStatus('in-progress');
           await dispatch(sendRunAssistance({
-            id: id, 
+            entity_id: id,
+            thread_id: thread.id,
             message: input
           }));
           scrollToBottom();
@@ -75,6 +77,12 @@ const Chat = ({id}) => {
       scrollToBottom();
     }, []);
 
+    useEffect(() => {
+      scrollToBottom();
+    }, [thread]);
+
+
+
   return (
     <Stack>
       <Typography variant="h3">{entity.name} chat</Typography>
@@ -83,6 +91,9 @@ const Chat = ({id}) => {
           {thread?.messages?.map((message) => (
             <Message key={message.id} message={message} />
           ))}
+          <div hidden={!['queued', 'in_progress','requires_action', 'cancelling'].includes(thread.status)}>
+          <LinearProgress variant="indeterminate" />
+          </div>
         </Box>
         <Box sx={{ p: 2, backgroundColor: "background.default" }}>
           <Grid container spacing={2}>

@@ -38,7 +38,8 @@ input RemoveEntityInput {
 }
 
 type Mutation {
-  removeEntity(args: RemoveEntityInput): String @function(name: "deleteEntity-${env}")
+  removeEntity(args: RemoveEntityInput): String @function(name: "removeEntityTrigger-${env}")
+  runAssistant(entity_id: ID!, thread_id: ID!, message: String!): String @function(name: "runAssistantTrigger-${env}")
 }
 
 type Query {

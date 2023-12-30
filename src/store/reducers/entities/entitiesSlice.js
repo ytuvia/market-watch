@@ -1,13 +1,15 @@
-import { createSlice, nanoid, createAsyncThunk  } from '@reduxjs/toolkit'
-import { API, graphqlOperation } from 'aws-amplify';
-import { listEntities, countDocuments, countAnswers, countThreads } from 'graphql/queries';
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
+
+import { generateClient } from 'aws-amplify/api';
+import { listEntities, countDocuments, countThreads } from 'graphql/queries';
 import { createEntity, createAnswer, removeEntity } from 'graphql/mutations';
-import { Storage } from 'aws-amplify';
+import { uploadData  } from 'aws-amplify/storage';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import awsExports from 'aws-exports';
+import amplifyconfig from 'amplifyconfiguration.json';
 
-const API_ENDPOINT = awsExports.aws_cloud_logic_custom[0].endpoint;
+const API_ENDPOINT = amplifyconfig.aws_cloud_logic_custom[0].endpoint;
+const client = generateClient();
 
 const initialState = {
   entities: [],
@@ -16,17 +18,17 @@ const initialState = {
 }
 
 export const fetchEntities = createAsyncThunk('entities/fetchEntities', async () => {
-  const result = await API.graphql(graphqlOperation(listEntities));
+  const result = await client.graphql({query: listEntities});
   const entities = result.data.listEntities.items;
   for(const entity of entities){
-    const documentCountResult = await API.graphql(graphqlOperation(countDocuments, {
+    const documentCountResult = await client.graphql({query: countDocuments, variables:  {
       'id': entity.id,
-    }));
+    }});
     entity.documentCount =  documentCountResult.data.countDocuments;
 
-    const threadsCountResult = await API.graphql(graphqlOperation(countThreads, {
+    const threadsCountResult = await client.graphql({query: countThreads, variables: {
       'id': entity.id,
-    }));
+    }});
     entity.threadsCount = threadsCountResult.data.countThreads;
   }
   return entities;
@@ -41,7 +43,7 @@ export const fetchAnswers = createAsyncThunk(
 )
 
 const getEntityAnswers = async (id, items=[], nextToken=null) => {
-  const result = await API.graphql(graphqlOperation(`
+  const result = await client.graphql({ query: `
       query GetEntity($id: ID!, $nextToken: String) {
         getEntity(id: $id) {
           answers(nextToken: $nextToken) {
@@ -56,9 +58,9 @@ const getEntityAnswers = async (id, items=[], nextToken=null) => {
           }
         }
       }
-    `, {
+    `, variables: {
       'id': id,
-  }));
+  }});
   nextToken = result.data?.getEntity.answers.nextToken;
   items = [...items, ...result.data?.getEntity.answers.items];
   if(nextToken){
@@ -77,7 +79,7 @@ export const fetchDocumentsPage = createAsyncThunk(
 )
 
 const getEntityDocuments = async (id, nextToken=null) => {
-  const result = await API.graphql(graphqlOperation(`
+  const result = await client.graphql({query: `
       query GetEntity($id: ID!, $nextToken: String) {
         getEntity(id: $id) {
           documents(nextToken: $nextToken) {
@@ -91,9 +93,9 @@ const getEntityDocuments = async (id, nextToken=null) => {
           }
         }
       }
-    `, {
+    `, variables: {
       'id': id,
-  }));
+  }});
   nextToken = result.data?.getEntity.documents.nextToken;
   const items = result.data?.getEntity.documents.items;
   return {
@@ -103,7 +105,7 @@ const getEntityDocuments = async (id, nextToken=null) => {
 }
 
 const getAllEntityDocuments = async (id, items=[], nextToken=null) => {
-  const result = await API.graphql(graphqlOperation(`
+  const result = await client.graphql({query: `
       query GetEntity($id: ID!, $nextToken: String) {
         getEntity(id: $id) {
           documents(nextToken: $nextToken) {
@@ -117,9 +119,9 @@ const getAllEntityDocuments = async (id, items=[], nextToken=null) => {
           }
         }
       }
-    `, {
+    `, variables: {
       'id': id,
-  }));
+  }});
   nextToken = result.data?.getEntity.documents.nextToken;
   items = [...items, ...result.data?.getEntity.documents.items];
   if(nextToken){
@@ -132,11 +134,11 @@ const getAllEntityDocuments = async (id, items=[], nextToken=null) => {
 export const addEntity = createAsyncThunk(
   'entities/createEntity',
   async initialEntity => {
-    const result = await API.graphql(graphqlOperation(createEntity, {
+    const result = await client.graphql({query: createEntity, variables: {
       'input':{
         'name': initialEntity.name
       }
-    }));
+    }});
     let entity = result.data.createEntity;
     return {
       id: entity.id,
@@ -150,11 +152,9 @@ export const addEntity = createAsyncThunk(
 export const deleteEntity = createAsyncThunk(
   'entities/deleteEntity',
   async initialEntity => {
-    const result = await API.graphql(graphqlOperation(removeEntity, {
-      'args':{
-          'id': initialEntity.id
-      }
-    }));
+    const result = await client.graphql({query: removeEntity, variables: {
+      'id': initialEntity.id
+    }});
     return result.data.removeEntity;
   }
 )
@@ -172,9 +172,7 @@ export const uploadDocument = createAsyncThunk(
       filetype =  parts[1];
     }
     const key = id +'/' + uuid + '.' + filetype;
-    const result = await Storage.put(key, file, {
-      contentType: mime, // contentType is optional
-    });
+    const result = await uploadData({key: key, data: file});
     return result;
   }
 )
@@ -198,13 +196,13 @@ export const askQuestion = createAsyncThunk(
 export const saveAnswer = createAsyncThunk(
   'entities/saveAnswer',
   async initialAnswer => {
-    await API.graphql(graphqlOperation(createAnswer, {
+    await client.graphql({query: createAnswer, variables: {
       'input': {
         'question': initialAnswer.question,
         'answer': initialAnswer.answer,
         'entityAnswersId': initialAnswer.id
       }
-    }));
+    }});
   }
 )
 

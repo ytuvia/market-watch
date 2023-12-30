@@ -1,0 +1,21 @@
+{
+  "Records": [
+      {
+          "messageId": "8f5da8f5-d4f9-439b-a506-72b3f6897584",
+          "receiptHandle": "AQEBdWt7zUFYRM7g9hCDD220L6hMdkJvABOmK9Ddn+9cQp0E9xBjoI3p0gCF1xa3VIW7ZGNqyu8C06PSTZ1jM/Z0DrRaBZbUkQG3AJ5eg1Bdg/xeIbNZv26fAjecq/reKvh1ae8I7IEX87Zk4sl/UGiaBV4hPB0eJDe8caNI70YAHDJcwncPKZLqE4g87NAGA3JwwybpPHPLSZzjD/L7TOAAgcv08kYxJhXPGHbDeM6gWQNFaECfDDlp/IeQi+PxhUMVrqzMmAv4nINpSHxXckBFjG6hW/TU47KezOsrABoaH8JM1m/uMJBGr+dHRTxnQHO7bd5PEX9Ttm7D3AMt1Y5jrdm+e5uaf2xcTukL9aU1H5cfyTCCKOKzfKp1IWDgXEzzOqSW4NUhQ/uwy4eqj3r6Xub/XEiTuuYZoVm9z8zyWsv6EaNquE2fb70asNlzKzr7dSz9vhIMZNc54NvazHP5ag==",
+          "body": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"0161ed21-4210-5081-8805-b0f121d90688\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant\",\n  \"Message\" : \"{\\\"id\\\":\\\"42862eef-a33a-4332-8867-a2e56760eba2\\\"}\",\n  \"Timestamp\" : \"2023-11-16T18:38:01.454Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"aWBOkUz0rz029V7OaytzkQhXyUye6q4DMKc/UEtWLFBpEsyBTKOOo1PkTxbE+/vIx41bjLEvboCJBEfJ5bZN/CCaR6V2BM5dC0YGl7wK0Je4IsIlY3YyUD92JK6HzkrKe0feloK+ujGEFj+sHeOszMq74eb3z2bLnIjSC5BuY78nQ5+hpApBEp+A5kws7N5+6GOyZckZsq7ijZZ/Q0Q5C8Ua6G5HQxnIC7NvBllUJI33621mZapIy3ZPGWy9xo7QmgRBbYj+2BH4Vt6hrI1H8E1ooUMa8lDKDmmQeeglVIbKXGLFqv9hb6aGNqoC1k9xlmr/mSIAsBiRmVczxdcqbg==\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-01d088a6f77103d0fe307c0069e40ed6.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:271936189865:delete-entity-documents-sns-topic-marketwatch-assistant:852af9e1-0c3e-45ee-aa02-4ec8d49646a3\"\n}",
+          "attributes": {
+              "ApproximateReceiveCount": "4",
+              "AWSTraceHeader": "Root=1-65566187-0a5db0a87dbe088a4f4c12fe;Parent=0809bf6b5bb50dc1;Sampled=0;Lineage=697db7bf:0",
+              "SentTimestamp": "1700159881504",
+              "SenderId": "AIDAIYLAVTDLUXBIEIX46",
+              "ApproximateFirstReceiveTimestamp": "1700210128009"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "10a49563a25527bfe286ad58dd67b76e",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:271936189865:delete-entity-documents-sqs-queue-marketwatch-assistant",
+          "awsRegion": "us-west-2"
+      }
+  ]
+}
