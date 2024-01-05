@@ -5,6 +5,7 @@
   Box,
   LinearProgress } from '@mui/material';
 import AddModal from './AddModal';
+import ChatModal from './ChatModal';
 import DashboardCard from './DashboardCard';
 
 // api import
@@ -46,6 +47,7 @@ const DashboardDefault = () => {
           ))}
         </Grid>
       </Stack>
+      <ChatModal />
     </Box>
 )};
 

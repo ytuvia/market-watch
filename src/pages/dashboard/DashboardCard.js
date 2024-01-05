@@ -3,22 +3,32 @@ import {
     Typography, 
     CardContent, 
     CardActions,
-    Stack } from '@mui/material';
+    Stack,
+    Button } from '@mui/material';
 import DeleteButton from './DeleteButton';
-import AskModal from './AskModal';
-import ChatModal from './ChatModal';
+import ThreadsModal from './ThreadsModal';
 import UploadModal from './UploadModal';
-import AnswersModal from './AnswersModal';
 import DocumentsModal from './DocumentsModel';
 import { useSelector } from 'react-redux';
 import { selectEntityById } from 'store/reducers/entities/entitiesSlice';
-
-// project import
+import { fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
 import MainCard from 'components/MainCard';
+import { dispatch } from 'store/index';
+import { openChat } from 'store/reducers/chat';
 
 const DashboardCard = ({id}) =>{
     const entity = useSelector(state=> selectEntityById(state, id))
-  
+    const handleChat = async () => {
+      const result = await dispatch(fetchEntityThreadMessages({ 
+        id: id,
+      })).unwrap();
+      await dispatch(openChat({
+        is_open: true,
+        entity_id: id,
+        thread_id: result.thread_id
+      }));
+    }
+
     return (
       <MainCard key={entity.id}>
         <CardContent>
@@ -31,7 +41,6 @@ const DashboardCard = ({id}) =>{
           <Stack>
             <Typography variant="subtitle">
                 <Stack direction="row" alignItems="center">
-                    <AnswersModal id={entity.id} name={ entity.name }/>
                     { entity.threadsCount } threads
                 </Stack>
             </Typography>
@@ -45,7 +54,7 @@ const DashboardCard = ({id}) =>{
         </CardContent>
         <CardActions>
           <UploadModal id={entity.id} name={entity.name}></UploadModal>
-          <ChatModal id={entity.id}></ChatModal>
+          <Button size="small" onClick={handleChat}>chat</Button>
         </CardActions>
       </MainCard>
     )

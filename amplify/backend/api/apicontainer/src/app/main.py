@@ -95,11 +95,12 @@ async def entity_thread_run(input: RunInput):
 
 @app.post("/thread/messages")
 async def thread_messages(input: ThreadInput):
-    (thread_id, thread_status, entity_id, messages) = get_thread_messages(input.thread_id)
+    (thread_id, thread_status, entity_id, updated_at, messages) = get_thread_messages(input.thread_id)
     result = {
         'thread_id': thread_id,
         'entity_id': entity_id,
         'thread_status': thread_status,
+        'updated_at': updated_at,
         'messages': messages
     }
     return result

@@ -14,19 +14,19 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from 'react-redux'
-import { selectLatestEntityThread, sendRunAssistance, sendClearThread, fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
+import { selectThreadById, selectLatestEntityThread, sendRunAssistance, sendClearThread, fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
 import { selectEntityById } from 'store/reducers/entities/entitiesSlice';
 import Markdown from 'react-markdown';
 
 
-const Chat = ({id}) => {
+const Chat = ({entity_id, thread_id}) => {
     const paperRef = useRef(null);
     const dispatch = useDispatch();
     const entity = useSelector(state=>{
-      return selectEntityById(state, id)
+      return selectEntityById(state, entity_id)
     });
     const thread = useSelector(state=>{
-      return selectLatestEntityThread(state, id)
+      return selectThreadById(state, thread_id)
     });
     const [input, setInput] = React.useState("");
     const [requestStatus, setRequestStatus] = useState('idle');
@@ -35,7 +35,7 @@ const Chat = ({id}) => {
         if (input.trim() !== "") {
           setRequestStatus('in-progress');
           await dispatch(sendRunAssistance({
-            entity_id: id,
+            entity_id: entity_id,
             thread_id: thread.id,
             message: input
           }));
@@ -52,11 +52,11 @@ const Chat = ({id}) => {
     const handleClear = async () => {
       setRequestStatus('in-progress');
       await dispatch(sendClearThread({
-        entity_id: id
+        entity_id: entity_id
       }));
 
       await dispatch(fetchEntityThreadMessages({ 
-        id: id,
+        id: entity_id,
       }))
       setRequestStatus('idle');
     };
@@ -75,6 +75,7 @@ const Chat = ({id}) => {
 
     useEffect(() => {
       scrollToBottom();
+      
     }, []);
 
     useEffect(() => {

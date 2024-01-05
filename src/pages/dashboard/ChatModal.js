@@ -1,15 +1,11 @@
 // material-ui
 import {
-    Button,
     Box,
     Modal,
-    CircularProgress
 } from '@mui/material';
 import Chat from 'components/Chat'
-// api import
-import { useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchEntityThreadMessages } from 'store/reducers/threads/threadsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { openChat } from 'store/reducers/chat';
 
 const modalStyle = {
     position: 'absolute',
@@ -23,43 +19,29 @@ const modalStyle = {
     p: 2,
   };
 
-const ChatModal = ({id}) => {
-    const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const handleClose = () => setOpen(false);
+const ChatModal = () => {
+    const { is_open, entity_id, thread_id } = useSelector((state) => state.chat);
 
-    const handleOpen = async () => {
-      setIsLoading(true);
-      await dispatch(fetchEntityThreadMessages({ 
-        id: id,
+    const dispatch = useDispatch();
+    const handleClose = async () => {
+      dispatch(openChat({
+        is_open: false,
+        entity_id: entity_id,
+        thread_id: thread_id
       }))
-      setIsLoading(false);
-      setOpen(true);
     }
+
     return (
-      <div>
-         {isLoading ? (
-          // CircularProgress is only rendered when 'loading' is true
-          <CircularProgress />
-        ) : (
-          // Your main content goes here
-          <div>
-            <Button size="small" hidden={isLoading} onClick={handleOpen}>chat</Button>
-          </div>
-        )}
-        
         <Modal
-          open={open}
+          open={is_open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={modalStyle}>
-            <Chat id={id} />
+            <Chat entity_id={entity_id} thread_id={thread_id}/>
           </Box>
         </Modal>
-      </div>
     );
   }
 

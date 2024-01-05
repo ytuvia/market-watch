@@ -20,7 +20,10 @@ const App = () => (
 export default function App() {
   return (
     <ReduxProvider store={store}>
-      <Authenticator>
+      <Authenticator signUpAttributes={[
+      'email',
+      'name'
+    ]}>
         {({ signOut, user }) => (
           <ThemeCustomization>
             <ScrollTop>

@@ -198,7 +198,7 @@ def get_thread(id):
 def get_thread_messages(thread_id):
     thread = get_thread(thread_id)
     messages = client.beta.threads.messages.list(thread_id=thread_id)
-    return (thread_id, thread['status'], thread['entityThreadsId'], messages.data)
+    return (thread_id, thread['status'], thread['entityThreadsId'], thread['updatedAt'], messages.data)
 
 def create_entity_assistant(entity, assistant):
     variables = {

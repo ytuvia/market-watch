@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createSelector  } from '@reduxjs/toolkit'
 import { generateClient } from 'aws-amplify/api';
 import amplifyconfig from 'amplifyconfiguration.json';
 import { runAssistant } from 'graphql/mutations'
@@ -12,6 +12,64 @@ const initialState = {
   status: 'idle',
   error: null
 }
+
+export const fetchThreadsPage = createAsyncThunk(
+  'threads/list',
+  async initialEntity => {
+    const result = await getEntityThreads(initialEntity.id, initialEntity.nextToken);
+    
+    return result;
+  }
+)
+
+const getEntityThreads = async (id, nextToken=null) => {
+  const query = `
+    query GetEntity($id: ID!, $nextToken: String) {
+      getEntity(id: $id) {
+        threads(nextToken: $nextToken) {
+            items {
+                id
+                title
+                status
+                createdAt
+                updatedAt
+            }
+            nextToken
+        }
+      }
+    }
+  `
+  const result = await client.graphql({query: query, variables: {
+      'id': id,
+  }});
+  nextToken = result.data?.getEntity.threads.nextToken;
+  const items = result.data?.getEntity.threads.items;
+  return {
+    items: items,
+    nextToken: nextToken
+  }
+}
+
+export const fetchThreadMessages = createAsyncThunk(
+  'thread/messages',
+  async initialEntity => {
+    const result = await geThreadMessages(initialEntity.id);
+    return result.data;  
+  }
+)
+
+const geThreadMessages = async (thread_id) => {
+  const postData = {
+    'thread_id': thread_id
+  }
+  const response = await axios.post(API_ENDPOINT + '/thread/messages', postData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response;
+}
+
 
 export const fetchEntityThreadMessages = createAsyncThunk(
   'entity/thread',
@@ -130,6 +188,7 @@ const threads = createSlice({
         const entity_id = action.meta.arg.id;
         const messages = action.payload.messages;
         const thread_id = action.payload.thread_id;
+        const updated_at = action.payload.updated_at;
         const thread_status = action.payload.thread_status;
         const sorted = messages.sort((a, b) => a.created_at - b.created_at);
         let thread = state.threads.find(item=>{return item.id === thread_id})
@@ -138,6 +197,7 @@ const threads = createSlice({
             id:thread_id,
             entity_id: entity_id,
             status: thread_status,
+            updated_at: updated_at,
             messages: sorted
           }
         }else{
@@ -145,11 +205,47 @@ const threads = createSlice({
             id:thread_id,
             entity_id: entity_id,
             status: thread_status,
+            updated_at: updated_at,
             messages: sorted
           })
         }
       })
       .addCase(fetchEntityThreadMessages.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(fetchThreadMessages.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchThreadMessages.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const thread = action.payload;
+        const thread_id = action.payload.thread_id;
+        const messages = action.payload.messages;
+        const sorted = messages.sort((a, b) => a.created_at - b.created_at);
+        thread.messages = sorted;
+        let thread_idx = state.threads.findIndex(item=>{return item.id === thread_id});
+        if(thread_idx > -1){
+          state.threads[thread_idx] = thread;
+        }else{
+          state.threads.push(thread)
+        }
+      })
+      .addCase(fetchThreadMessages.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(fetchThreadsPage.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchThreadsPage.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const entity_id = action.meta.arg.id;
+        const threads = action.payload.items;
+        const entity_threads = threads.map(item => ({ ...item, ...{entity_id: entity_id, updated_at: item.updatedAt}}));
+        state.threads = entity_threads;
+      })
+      .addCase(fetchThreadsPage.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })
@@ -179,10 +275,12 @@ const threads = createSlice({
             }
           ]
         })
+        const currentDate = new Date();
         state.threads[thread_idx] = {
           id:thread_id,
           entity_id: entity_id,
           status: thread_status,
+          updated_at: currentDate.toLocaleString(),
           messages: thread.messages
         }
 
@@ -221,6 +319,7 @@ const threads = createSlice({
         state.status = 'succeeded';
         const messages = action.payload.messages;
         const thread_id = action.payload.thread_id;
+        const updated_at = action.payload.updated_at;
         const entity_id = action.payload.entity_id;
         const thread_status = action.payload.thread_status;
         const sorted = messages.sort((a, b) => a.created_at - b.created_at);
@@ -229,6 +328,7 @@ const threads = createSlice({
           id:thread_id,
           entity_id: entity_id,
           status: thread_status,
+          updated_at: updated_at,
           messages: sorted
         }
       })
@@ -242,6 +342,7 @@ const threads = createSlice({
 export default threads.reducer
 
 export const selectAllThreads = state => state.threads.threads
+const selectThreadsByEntityId = (state, id) => id;
 
 export const selectThreadById = (state, id) =>{
   return state.threads.threads.find(thread => thread.id === id);
@@ -251,4 +352,8 @@ export const selectLatestEntityThread = (state, id) =>{
   const threads = state.threads.threads.filter(thread => thread.entity_id === id);
   return threads[threads.length-1];
 }
-  
+
+export const selectEntityThreads = createSelector([selectAllThreads, selectThreadsByEntityId], (threads, id)=>{
+  const result =threads.filter(thread => thread.entity_id === id);
+  return result;
+})
